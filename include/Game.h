@@ -15,7 +15,6 @@ public:
   Game();
   ~Game();
 
-  // Запрет копирования (RAII)
   Game(const Game &) = delete;
   Game &operator=(const Game &) = delete;
 
