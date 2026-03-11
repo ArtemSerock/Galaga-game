@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <iostream>
+#include <string_view>>
 
 bool Game::Init(std::string_view title, int width, int height) {
   if (!SDL_Init(SDL_INIT_VIDEO)) {
@@ -14,3 +15,21 @@ bool Game::Init(std::string_view title, int width, int height) {
     return false;
   }
 }
+
+void Game::Clean() {
+  if (ctx.renderer) {
+    SDL_DestroyRenderer(ctx.renderer);
+    ctx.renderer = nullptr;
+  }
+
+  if (ctx.window) {
+    SDL_DestroyWindow(ctx.window);
+    ctx.window = nullptr;
+  }
+
+  SDL_Quit();
+
+  ctx.isRunning = false;
+}
+
+Game::~Game() { Clean(); }
