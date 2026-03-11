@@ -29,9 +29,18 @@ public:
    * @return false Ошибка при инициализации
    */
   bool Init(std::string_view title, int width, int height);
-
+  /**
+   * @brief Обработка событий
+   */
   void HandleEvents();
+  /**
+   * @brief Обработка вычислений
+   */
   void Update();
+
+  /**
+   * @brief Отрисока
+   */
   void Render();
 
 private:
