@@ -4,6 +4,7 @@
 # documentation
 docs/
 
+.cache/
 # Build
 build/
 
