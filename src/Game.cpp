@@ -2,6 +2,7 @@
 #include "SDL3/SDL_init.h"
 #include <iostream>
 
+Game::Game() {}
 SDL_AppResult Game::Init(std::string_view title, int width, int height) {
   if (!SDL_Init(SDL_INIT_VIDEO)) {
     std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
@@ -18,13 +19,11 @@ SDL_AppResult Game::Init(std::string_view title, int width, int height) {
   return SDL_APP_CONTINUE;
 }
 
-SDL_AppResult Game::HandleEvents() {
-  SDL_Event event;
-  while (SDL_PollEvent(&event)) {
-    if (event.type == SDL_EVENT_QUIT) {
-      return SDL_APP_SUCCESS;
-    }
+SDL_AppResult Game::HandleEvents(SDL_Event *event) {
+  if (event->type == SDL_EVENT_QUIT) {
+    return SDL_APP_SUCCESS;
   }
+  return SDL_APP_CONTINUE;
 }
 
 void Game::Update() {
@@ -54,7 +53,6 @@ void Game::Clean() {
   }
 
   SDL_Quit();
-  ctx.isRunning = false;
 }
 
 Game::~Game() { Clean(); }
