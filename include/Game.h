@@ -32,7 +32,7 @@ public:
   /**
    * @brief Обработка событий
    */
-  SDL_AppResult HandleEvents();
+  SDL_AppResult HandleEvents(SDL_Event *event);
   /**
    * @brief Обработка вычислений
    */
