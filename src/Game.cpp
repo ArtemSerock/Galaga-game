@@ -1,19 +1,45 @@
 #include "Game.h"
+#include "SDL3/SDL_init.h"
 #include <iostream>
-#include <string_view>>
 
-bool Game::Init(std::string_view title, int width, int height) {
+SDL_AppResult Game::Init(std::string_view title, int width, int height) {
   if (!SDL_Init(SDL_INIT_VIDEO)) {
     std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
-    return false;
+    return SDL_APP_FAILURE;
   }
 
   if (!SDL_CreateWindowAndRenderer(title.data(), width, height, 0, &ctx.window,
                                    &ctx.renderer)) {
     std::cerr << "Failed to create Window/Renderer: " << SDL_GetError()
               << std::endl;
-    return false;
+    return SDL_APP_FAILURE;
   }
+
+  return SDL_APP_CONTINUE;
+}
+
+SDL_AppResult Game::HandleEvents() {
+  SDL_Event event;
+  while (SDL_PollEvent(&event)) {
+    if (event.type == SDL_EVENT_QUIT) {
+      return SDL_APP_SUCCESS;
+    }
+  }
+}
+
+void Game::Update() {
+  // Здесь будет логика перемещения объектов, проверки столкновений и т.д.
+}
+
+void Game::Render() {
+  // Устанавливаем цвет фона (например, черный)
+  SDL_SetRenderDrawColor(ctx.renderer, 0, 0, 0, 255);
+  SDL_RenderClear(ctx.renderer);
+
+  // Здесь вызываются функции отрисовки объектов
+
+  // Выводим результат на экран
+  SDL_RenderPresent(ctx.renderer);
 }
 
 void Game::Clean() {
@@ -28,7 +54,6 @@ void Game::Clean() {
   }
 
   SDL_Quit();
-
   ctx.isRunning = false;
 }
 

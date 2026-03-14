@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "GameContext.h"
+#include "SDL3/SDL_init.h"
 #include <SDL3/SDL.h>
 #include <string_view>
 
@@ -27,11 +28,11 @@ public:
    * @return true Успешная инициализация
    * @return false Ошибка при инициализации
    */
-  bool Init(std::string_view title, int width, int height);
+  SDL_AppResult Init(std::string_view title, int width, int height);
   /**
    * @brief Обработка событий
    */
-  void HandleEvents();
+  SDL_AppResult HandleEvents();
   /**
    * @brief Обработка вычислений
    */
