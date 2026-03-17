@@ -1,10 +1,10 @@
 #ifndef ISCENE_H
 #define ISCENE_H
 
-#include "GameContext.h"
 #include <SDL3/SDL.h>
 #include <memory>
 
+struct GameContext;
 /**
  * @brief Интерфей сцен
  *
