@@ -23,21 +23,28 @@ SDL_AppResult Game::HandleEvents(SDL_Event *event) {
   if (event->type == SDL_EVENT_QUIT) {
     return SDL_APP_SUCCESS;
   }
+  if (ctx.activeScene) {
+        ctx.activeScene->handleEvent(ctx, *event);
+    }
   return SDL_APP_CONTINUE;
 }
 
 void Game::Update() {
-  // Здесь будет логика перемещения объектов, проверки столкновений и т.д.
+  ctx.updateScene();
+
+  if (ctx.activeScene) {
+    ctx.activeScene->update(ctx, 0.016f);
+  }
 }
 
 void Game::Render() {
-  // Устанавливаем цвет фона (например, черный)
   SDL_SetRenderDrawColor(ctx.renderer, 0, 0, 0, 255);
   SDL_RenderClear(ctx.renderer);
 
-  // Здесь вызываются функции отрисовки объектов
 
-  // Выводим результат на экран
+  if (ctx.activeScene) {
+    ctx.activeScene->render(ctx);
+  }
   SDL_RenderPresent(ctx.renderer);
 }
 
