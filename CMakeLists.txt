@@ -13,14 +13,19 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/libsdl-org/SDL
   GIT_TAG        main 
 )
-FetchContent_MakeAvailable(SDL3)
+FetchContent_Declare(
+    SDL3_image
+  GIT_REPOSITORY https://github.com/libsdl-org/SDL_image
+  GIT_TAG        main 
+)
+FetchContent_MakeAvailable(SDL3 SDL3_image)
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 add_executable(Galaga ${SOURCES})
 
 target_include_directories(Galaga PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-target_link_libraries(Galaga PRIVATE SDL3::SDL3)
+target_link_libraries(Galaga PRIVATE SDL3::SDL3 SDL3_image)
 
 add_custom_command(TARGET Galaga POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
