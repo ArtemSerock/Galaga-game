@@ -10,7 +10,7 @@ void GameContext::updateScene() {
 
   switch (nextScene) {
   case SceneType::MENU:
-    activeScene = std::make_unique<MenuScene>();
+    activeScene = std::make_unique<MenuScene>(*this);
     break;
   case SceneType::GAME:
     activeScene = std::make_unique<GameScene>();
