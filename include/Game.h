@@ -28,7 +28,7 @@ public:
    * @return true Успешная инициализация
    * @return false Ошибка при инициализации
    */
-  SDL_AppResult Init(std::string_view title, int width, int height);
+  SDL_AppResult Init(std::string_view title);
   /**
    * @brief Обработка событий
    */
