@@ -15,6 +15,8 @@ class MenuScene : public IScene {
 private:
   SDL_Texture *logo;
   SDL_FRect logoRect;
+  SDL_Texture *label;
+  SDL_FRect labelRect;
 
 public:
   /**
