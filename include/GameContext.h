@@ -14,13 +14,13 @@ enum class SceneType { NONE, MENU, GAME, GAME_OVER };
  * и текущую сцену
  */
 struct GameContext {
-  SDL_Renderer *renderer = nullptr;      //< Рендер игры
-  SDL_Window *window = nullptr;          //< Окно игры
-  int width = 1000;                       //< Длина экрана
-  int height = 800;                      //< Ширина экрана
-  SceneType nextScene = SceneType::MENU; //< Следующая сцена
+  SDL_Renderer *renderer = nullptr;      ///< Рендер игры
+  SDL_Window *window = nullptr;          ///< Окно игры
+  int width = 1000;                      ///< Длина экрана
+  int height = 800;                      ///< Ширина экрана
+  SceneType nextScene = SceneType::MENU; ///< Следующая сцена
 
-  std::unique_ptr<IScene> activeScene = nullptr; //< Текущая сцена
+  std::unique_ptr<IScene> activeScene = nullptr; ///< Текущая сцена
 
   /**
    * Конструкторы запрещают копирование, чтобы избежать двойного удаления

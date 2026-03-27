@@ -23,10 +23,6 @@ public:
    * @brief Инициализация игры
    *
    * @param title Название игры
-   * @param width Ширина окна
-   * @param height Высота окна
-   * @return true Успешная инициализация
-   * @return false Ошибка при инициализации
    */
   SDL_AppResult Init(std::string_view title);
   /**
