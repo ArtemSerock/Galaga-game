@@ -45,7 +45,6 @@ void Game::Render() {
   if (ctx.activeScene) {
     ctx.activeScene->render(ctx);
   }
-  SDL_RenderPresent(ctx.renderer);
 }
 
 void Game::Clean() {
