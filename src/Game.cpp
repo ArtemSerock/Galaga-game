@@ -16,6 +16,8 @@ SDL_AppResult Game::Init(std::string_view title) {
     return SDL_APP_FAILURE;
   }
 
+  lastTicks = SDL_GetTicksNS();
+
   return SDL_APP_CONTINUE;
 }
 
@@ -31,9 +33,16 @@ SDL_AppResult Game::HandleEvents(SDL_Event *event) {
 
 void Game::Update() {
   ctx.updateScene();
+  uint64_t currentTicks = SDL_GetTicksNS();
+  
+  float deltaTime = (float)(currentTicks - lastTicks) / 1000000000.0f;
+  
+  lastTicks = currentTicks;
+
+  if (deltaTime > 0.1f) deltaTime = 0.016f; 
 
   if (ctx.activeScene) {
-    ctx.activeScene->update(ctx, 0.016f);
+    ctx.activeScene->update(ctx, deltaTime);
   }
 }
 
