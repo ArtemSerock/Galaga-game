@@ -45,6 +45,8 @@ private:
    */
   void Clean();
 
+  uint64_t lastTicks = 0;
+
   GameContext ctx;
 };
 
