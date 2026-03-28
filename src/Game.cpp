@@ -3,13 +3,13 @@
 #include <iostream>
 
 Game::Game() {}
-SDL_AppResult Game::Init(std::string_view title, int width, int height) {
+SDL_AppResult Game::Init(std::string_view title) {
   if (!SDL_Init(SDL_INIT_VIDEO)) {
     std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
     return SDL_APP_FAILURE;
   }
 
-  if (!SDL_CreateWindowAndRenderer(title.data(), width, height, 0, &ctx.window,
+  if (!SDL_CreateWindowAndRenderer(title.data(), ctx.width, ctx.height, 0, &ctx.window,
                                    &ctx.renderer)) {
     std::cerr << "Failed to create Window/Renderer: " << SDL_GetError()
               << std::endl;

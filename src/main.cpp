@@ -5,12 +5,11 @@
 #include <SDL3/SDL_main.h>
 #include <memory>
 
-GameContext ctx;
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
   auto game = std::make_unique<Game>();
 
-  SDL_AppResult result = game->Init("GALAGA", 800, 600);
+  SDL_AppResult result = game->Init("GALAGA");
 
   if (result == SDL_APP_CONTINUE) {
     *appstate = game.release();
