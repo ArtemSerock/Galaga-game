@@ -18,7 +18,7 @@ struct GameContext {
   SDL_Window *window = nullptr;          ///< Окно игры
   int width = 1000;                      ///< Длина экрана
   int height = 800;                      ///< Ширина экрана
-  SceneType nextScene = SceneType::MENU; ///< Следующая сцена
+  SceneType nextScene = SceneType::NONE; ///< Следующая сцена
 
   std::unique_ptr<IScene> activeScene = nullptr; ///< Текущая сцена
 

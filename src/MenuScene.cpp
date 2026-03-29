@@ -2,11 +2,12 @@
 #include "GameContext.h"
 #include "SDL3/SDL_rect.h"
 #include "SDL3/SDL_render.h"
+#include "SDL3/SDL_scancode.h"
 #include <SDL3_image/SDL_image.h>
 
 MenuScene::MenuScene(GameContext &ctx) {
   logo = IMG_LoadTexture(ctx.renderer, "../assets/logo.png");
-  label = IMG_LoadTexture(ctx.renderer, "../assets/press_enter.png");
+  label = IMG_LoadTexture(ctx.renderer, "../assets/press_space.png");
 
   float texW = 0, texH = 0;
   SDL_GetTextureSize(logo, &texW, &texH);
@@ -23,8 +24,7 @@ MenuScene::MenuScene(GameContext &ctx) {
 
 void MenuScene::handleEvent(GameContext &ctx, const SDL_Event &event) {
   if (event.type == SDL_EVENT_KEY_DOWN) {
-    if (event.key.scancode == SDL_SCANCODE_RETURN ||
-        event.key.scancode == SDL_SCANCODE_KP_ENTER) {
+    if (event.key.scancode == SDL_SCANCODE_SPACE) {
       ctx.nextScene = SceneType::GAME;
     }
   }
@@ -39,7 +39,6 @@ void MenuScene::render(GameContext &ctx) const {
   SDL_RenderClear(ctx.renderer);
   SDL_RenderTexture(ctx.renderer, logo, NULL, &logoRect);
   SDL_RenderTexture(ctx.renderer, label, NULL, &labelRect);
-  SDL_RenderPresent(ctx.renderer);
 }
 
 MenuScene::~MenuScene() {
