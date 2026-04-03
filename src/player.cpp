@@ -1,5 +1,7 @@
 #include "player.h"
 #include "entity.h"
+#include "physic.h"
+#include <array>
 #include <SDL3/SDL.h>
 
 Player::Player(SDL_Texture *tex, float x, float y, const EntityConfig &config)
@@ -8,12 +10,24 @@ Player::Player(SDL_Texture *tex, float x, float y, const EntityConfig &config)
 void Player::update(float dt) {
   const bool *keys = SDL_GetKeyboardState(NULL);
 
-  if (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_LEFT]) {
-    this->transform.x -= speed * dt;
+  const float speed_per_second = speed * dt;
 
-  } else if (keys[SDL_SCANCODE_D] || keys[SDL_SCANCODE_RIGHT]) {
-    this->transform.x += speed * dt;
+  std::array<float, 2> direction  = {0.0f, 0.0f};
+  
+  if (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_LEFT])  direction[0] -= 1.0f;
+  if (keys[SDL_SCANCODE_D] || keys[SDL_SCANCODE_RIGHT]) direction[0] += 1.0f;
+  if (keys[SDL_SCANCODE_W] || keys[SDL_SCANCODE_UP])    direction[1] -= 1.0f;
+  if (keys[SDL_SCANCODE_S] || keys[SDL_SCANCODE_DOWN])  direction[1] += 1.0f;
+
+  float length = Physic::length2D(direction);
+  if (length > 0.0f){
+    Physic::normalize2D(direction);
   }
+  
+
+
+  this->transform.x += direction[0] * speed_per_second;
+  this->transform.y += direction[1] * speed_per_second;
 }
 
 
