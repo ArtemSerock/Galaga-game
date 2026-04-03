@@ -1,7 +1,5 @@
 #include "Game.h"
 #include "GameContext.h"
-#include "SDL3/SDL_init.h"
-#include "SDL3/SDL_render.h"
 #include <iostream>
 
 Game::Game() {}
@@ -51,8 +49,6 @@ void Game::Update() {
 }
 
 void Game::Render() {
-  SDL_SetRenderDrawColor(ctx.renderer, 0, 0, 0, 255);
-  SDL_RenderClear(ctx.renderer);
 
   if (ctx.activeScene) {
     ctx.activeScene->render(ctx);

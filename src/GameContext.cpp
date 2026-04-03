@@ -1,7 +1,6 @@
 #include "GameContext.h"
 #include "GameScene.h"
 #include "MenuScene.h"
-#include <iostream>
 #include <memory>
 
 void GameContext::updateScene() {
@@ -13,7 +12,7 @@ void GameContext::updateScene() {
     activeScene = std::make_unique<MenuScene>(*this);
     break;
   case SceneType::GAME:
-    activeScene = std::make_unique<GameScene>();
+    activeScene = std::make_unique<GameScene>(*this);
     break;
   default:
     break;
