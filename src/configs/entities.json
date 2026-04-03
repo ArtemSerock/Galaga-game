@@ -1,7 +1,7 @@
 {
     "player": {
         "hp": 100.0,
-        "speed": 50.0,
+        "speed": 400.0,
         "asset": "assets/player.png",
         "width": 100.0,
         "height": 50.0
