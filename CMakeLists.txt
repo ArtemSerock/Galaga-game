@@ -18,17 +18,25 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/libsdl-org/SDL_image
   GIT_TAG        main 
 )
-FetchContent_MakeAvailable(SDL3 SDL3_image)
+
+FetchContent_Declare(
+    json
+    GIT_REPOSITORY https://github.com/nlohmann/json
+    GIT_TAG master
+)
+
+FetchContent_MakeAvailable(SDL3 SDL3_image json)
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 add_executable(Galaga ${SOURCES})
 
 target_include_directories(Galaga PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-target_link_libraries(Galaga PRIVATE SDL3::SDL3 SDL3_image)
+target_link_libraries(Galaga PRIVATE SDL3::SDL3 SDL3_image nlohmann_json::nlohmann_json)
 
-add_custom_command(TARGET Galaga POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_CURRENT_SOURCE_DIR}/assets
-    ${CMAKE_CURRENT_BINARY_DIR}/assets
-)
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/src/configs" 
+     DESTINATION "${CMAKE_BINARY_DIR}")
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/assets" 
+     DESTINATION "${CMAKE_BINARY_DIR}")
+
+
