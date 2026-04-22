@@ -1,19 +1,9 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+#include "GameContext.h"
+#include "entityConfig.h"
 #include <SDL3/SDL.h>
-#include <memory>
-#include <string>
-
-/**
- * @brief Конфигурации сущностей
- */
-struct EntityConfig {
-  float hp;
-  float speed;
-  float width;
-  float height;
-};
 
 /**
  * @brief Базовый класс игровой сущности.
@@ -33,7 +23,7 @@ public:
    * @param tex текстура
    * @param x координата по горизонтали
    * @param y координата по вертикали
-   * @param Конфигурации из JSON файла
+   * @param config Конфигурации из JSON файла
    */
   Entity(SDL_Texture *tex, float x, float y, const EntityConfig &config);
 
@@ -49,7 +39,7 @@ public:
    * @brief Обновление логики.
    * @param dt Delta Time (время в секундах с прошлого кадра).
    */
-  virtual void update(float dt) = 0;
+  virtual void update(float dt, const GameContext &ctx) = 0;
 
   /**
    * @brief логика отрисовки.
@@ -67,6 +57,11 @@ public:
    * @brief отключение объекта
    */
   void deactivate();
+
+  /**
+   * @brief Включение объекта
+   */
+  void activate();
 
   /**
    * @brief получение координат и размера объекта
