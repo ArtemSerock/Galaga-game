@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "GameContext.h"
 #include "entity.h"
 
 /**
@@ -22,11 +23,11 @@ public:
    * @brief Обработка вычислений
    * @param dt Delta Time -- разница во времени между кадрами
    */
-  void update(float dt) override;
+  void update(float dt, const GameContext &ctx) override;
 
   /**
    * @brief Деструктор
-   * 
+   *
    */
   ~Player();
 };
