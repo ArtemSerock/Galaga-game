@@ -4,8 +4,7 @@
 
 Entity::Entity(SDL_Texture *tex, float x, float y, const EntityConfig &config)
     : asset(tex), transform({x, y, 0.0f, 0.0f}), hp(config.hp),
-      speed(config.speed) 
-{
+      speed(config.speed) {
   transform.w = config.width;
   transform.h = config.height;
 }
@@ -30,6 +29,4 @@ void Entity::takeDamage(float amount) {
   }
 }
 
-void Entity::update(float dt) {
-  // TODO
-}
+void Entity::activate() { this->active = true; }
