@@ -16,6 +16,8 @@ SDL_AppResult Game::Init(std::string_view title) {
     return SDL_APP_FAILURE;
   }
 
+  SDL_SetRenderVSync(ctx.renderer, 1);
+
   lastTicks = SDL_GetTicksNS();
   ctx.nextScene = SceneType::MENU;
 
