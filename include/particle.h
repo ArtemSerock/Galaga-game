@@ -30,6 +30,7 @@ public:
   /**
    * @brief Обновление логики
    * @param dt Delta Time(Время в секундах с прошлого кадра)
+   * @param ctx Игровой контекст
    */
   virtual void update(float dt, const GameContext &ctx) = 0;
 
