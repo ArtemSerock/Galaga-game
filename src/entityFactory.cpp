@@ -16,13 +16,12 @@ EntityFactory::EntityFactory(AssetManager &am, const std::string &jsonPath)
     std::cerr << "FACTORY: Error - File is EMPTY: " << jsonPath << std::endl;
     return;
   }
-file.seekg(0, std::ios::beg);
+  file.seekg(0, std::ios::beg);
   try {
     file >> configData;
-} catch (const nlohmann::json::parse_error& e) {
+  } catch (const nlohmann::json::parse_error &e) {
     std::cerr << "JSON Parse Error: " << e.what() << std::endl;
-}
-
+  }
 
   try {
     file >> configData;

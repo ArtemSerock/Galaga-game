@@ -5,5 +5,13 @@
         "asset": "assets/player.png",
         "width": 100.0,
         "height": 50.0
-    }
+    },
+    
+    "player_bullet": {
+        "vel_x": 0.0,
+        "vel_y": -700.0,
+        "width": 10.0,
+        "height": 25.0,
+        "asset": "assets/bullet.png"
+  }
 }

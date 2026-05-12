@@ -3,10 +3,11 @@
 
 #include "GameContext.h"
 #include "IScene.h"
+#include "assetManager.h"
+#include "bullet_pool.h"
+#include "entityFactory.h"
 #include "player.h"
 #include <memory>
-#include "assetManager.h"
-#include "entityFactory.h"
 
 /**
  * @brief Класс сцены Основной игры
@@ -19,6 +20,7 @@ private:
   AssetManager am;
   EntityFactory factory;
   std::unique_ptr<Player> player;
+  BulletPool player_bullets;
 
 public:
   /**
@@ -49,6 +51,5 @@ public:
    */
   void render(GameContext &ctx) const override;
 };
-
 
 #endif
