@@ -25,7 +25,8 @@ public:
   ~Particle();
 
   Particle(const Particle &) = delete;
-  Particle operator=(const Particle &) = delete;
+  Particle(Particle &&) = default;
+  Particle &operator=(Particle &&) = default;
 
   /**
    * @brief Обновление логики
@@ -62,10 +63,38 @@ public:
    */
   const SDL_FRect &getRect() const;
 
+  /**
+   * @brief Получение координаты X
+   * @return x
+   */
+  const float getX() const;
+  /**
+   * @brief Получение координаты Y
+   * @return y
+   */
+  const float getY() const;
+  /**
+   * @brief Получение длины
+   * @return width
+   */
+  const float getW() const;
+  /**
+   * @brief Получение ширины
+   * @return height
+   */
+  const float getH() const;
+
+  /**
+   * @brief Устанавливает позицию частицы
+   * @param x координата x
+   * @param y координата y
+   */
+  void setPosition(float x, float y);
+
 protected:
   SDL_Texture *tex;    ///< Текстура частицы
   SDL_FRect transform; ///< Позиция и размер
-  bool active = false; ///< Флаг для удаления из игрового цикла
+  bool active = true;  ///< Флаг для удаления из игрового цикла
 
   float velocity_y; ///< Скорость по веритикали в пикселях в секунду
   float velocity_x; ///< Скорость по горизонтали в пикселях в секунду

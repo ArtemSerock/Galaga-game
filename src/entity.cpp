@@ -1,6 +1,6 @@
 #include "entity.h"
+#include "GameContext.h"
 #include <SDL3/SDL.h>
-#include <iostream>
 
 Entity::Entity(SDL_Texture *tex, float x, float y, const EntityConfig &config)
     : asset(tex), transform({x, y, 0.0f, 0.0f}), hp(config.hp),
@@ -30,3 +30,5 @@ void Entity::takeDamage(float amount) {
 }
 
 void Entity::activate() { this->active = true; }
+
+void Entity::update(float dt, const GameContext &ctx) {}

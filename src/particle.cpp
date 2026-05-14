@@ -1,5 +1,4 @@
 #include "particle.h"
-#include "SDL3/SDL_render.h"
 #include <SDL3/SDL.h>
 
 Particle::Particle(SDL_Texture *tex, float x, float y,
@@ -26,3 +25,16 @@ void Particle::deactivate() { this->active = false; }
 void Particle::activate() { this->active = true; }
 
 const SDL_FRect &Particle::getRect() const { return this->transform; }
+
+const float Particle::getX() const { return transform.x; }
+
+const float Particle::getY() const { return transform.y; }
+
+const float Particle::getH() const { return transform.h; }
+
+const float Particle::getW() const { return transform.w; }
+
+void Particle::setPosition(float x, float y) {
+  transform.x = x;
+  transform.y = y;
+}

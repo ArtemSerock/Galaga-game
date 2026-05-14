@@ -17,12 +17,14 @@ GameScene::GameScene(GameContext &ctx) : am(), factory(am) {
 void GameScene::handleEvent(GameContext &ctx, const SDL_Event &event) {}
 
 void GameScene::update(GameContext &ctx, float deltaTime) {
-  player->update(deltaTime, ctx);
+  player->update(deltaTime, ctx, player_bullets, factory);
+  player_bullets.update(deltaTime, ctx);
 }
 
 void GameScene::render(GameContext &ctx) const {
   SDL_SetRenderDrawColor(ctx.renderer, 255, 255, 190, 255);
   SDL_RenderClear(ctx.renderer);
+  player_bullets.draw(ctx.renderer);
 
   player->draw(ctx.renderer);
 }

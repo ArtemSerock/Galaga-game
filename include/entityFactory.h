@@ -2,7 +2,9 @@
 #define ENTITY_FACTORY_H
 
 #include "assetManager.h"
+#include "particleConfig.h"
 #include "player.h"
+#include "player_bullet.h"
 #include <iostream>
 #include <memory>
 #include <nlohmann/json.hpp>
@@ -56,10 +58,23 @@ public:
     eConfig.width = cfg.value("width", 32.0f);
     eConfig.height = cfg.value("height", 32.0f);
 
-    if (type == "player") {
+    ParticleConfig pConfig;
+    pConfig.height = cfg.value("height", 25.0);
+    pConfig.width = cfg.value("width", 10.0);
+    pConfig.vel_x = cfg.value("vel_x", 0.0);
+    pConfig.vel_y = cfg.value("vel_y", -700.0);
 
-      return std::make_unique<Player>(tex, x, y, eConfig);
+    if constexpr (std::is_same_v<T, Player>) {
+      if (type == "player") {
+        return std::make_unique<Player>(tex, x, y, eConfig);
+      }
+    } else if constexpr (std::is_same_v<T, PlayerBullet>) {
+      if (type == "player_bullet") {
+        return std::make_unique<PlayerBullet>(tex, x, y, pConfig);
+      }
     }
+
+    return nullptr;
 
     return nullptr;
   }
