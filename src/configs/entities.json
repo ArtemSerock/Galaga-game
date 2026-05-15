@@ -13,5 +13,12 @@
         "width": 10.0,
         "height": 25.0,
         "asset": "assets/bullet.png"
+  },
+    "bee": {
+        "hp": 10.0,
+        "speed": 500.0,
+        "asset": "assets/bee.png",
+        "width": 50.0,
+        "height": 50.0
   }
 }
