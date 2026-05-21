@@ -28,6 +28,7 @@ public:
   /**
    * @brief Обработка вычислений
    * @param dt Delta Time -- разница во времени между кадрами
+   * @param ctx Игровой контекст
    * @param pool Пул объектов
    * @param factory Фабрика объектов
    */
@@ -36,6 +37,7 @@ public:
   /**
    * @brief Обработка вычислений
    * @param dt Delta Time -- разница во времени между кадрами
+   * @param ctx Игровой контекст
    */
   void update(float dt, const GameContext &ctx) override;
 

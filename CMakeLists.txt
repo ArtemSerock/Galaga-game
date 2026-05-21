@@ -42,5 +42,14 @@ file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/src/configs"
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/assets"
      DESTINATION "${CMAKE_BINARY_DIR}")
 
-add_compile_options(-O3 -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections -flto)
-add_link_options(-Wl,--gc-sections -flto -s)
+add_compile_options(-fno-exceptions -fno-rtti)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+
+  target_compile_options(Galaga PRIVATE -fsanitize=address -g -O1)
+  target_link_options(Galaga PRIVATE -fsanitize=address)
+
+else()
+  target_compile_options(Galaga PRIVATE -O3 -ffunction-sections -fdata-sections -flto)
+  target_link_options(Galaga PRIVATE -Wl,--gc-sections -flto -s)
+endif()

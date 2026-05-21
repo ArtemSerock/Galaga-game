@@ -2,6 +2,7 @@
 #define ENTITY_FACTORY_H
 
 #include "assetManager.h"
+#include "bee.h"
 #include "particleConfig.h"
 #include "player.h"
 #include "player_bullet.h"
@@ -36,6 +37,7 @@ public:
    * @param type тип объекта
    * @param x координата по горизонтали
    * @param y координата по вертикали
+   * @param renderer Отрисовщик окна
    * @return указатель на объект
    */
   template <typename T>
@@ -65,12 +67,21 @@ public:
     pConfig.vel_y = cfg.value("vel_y", -700.0);
 
     if constexpr (std::is_same_v<T, Player>) {
+
       if (type == "player") {
         return std::make_unique<Player>(tex, x, y, eConfig);
       }
+
     } else if constexpr (std::is_same_v<T, PlayerBullet>) {
+
       if (type == "player_bullet") {
         return std::make_unique<PlayerBullet>(tex, x, y, pConfig);
+      }
+
+    } else if constexpr (std::is_same_v<T, Bee>) {
+
+      if (type == "bee") {
+        return std::make_unique<Bee>(tex, x, y, eConfig);
       }
     }
 

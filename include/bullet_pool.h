@@ -35,6 +35,10 @@ public:
    */
   void update(float dt, const GameContext &ctx);
 
+  /**
+   * @brief Отрисовка пуль
+   * @param render Обработчик окна
+   */
   void draw(SDL_Renderer *render) const;
 };
 

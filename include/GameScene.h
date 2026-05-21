@@ -4,6 +4,7 @@
 #include "GameContext.h"
 #include "IScene.h"
 #include "assetManager.h"
+#include "bee_pool.h"
 #include "bullet_pool.h"
 #include "entityFactory.h"
 #include "player.h"
@@ -19,7 +20,10 @@ class GameScene : public IScene {
 private:
   AssetManager am;
   EntityFactory factory;
+  BeePool bees;
   std::unique_ptr<Player> player;
+  float beeCooldown = 2.0f;
+  float beeTimer = 0.0f;
   BulletPool player_bullets;
 
 public:
