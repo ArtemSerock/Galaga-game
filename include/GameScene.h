@@ -22,6 +22,8 @@ private:
   EntityFactory factory;
   BeePool bees;
   std::unique_ptr<Player> player;
+  float beeCooldown = 2.0f;
+  float beeTimer = 0.0f;
   BulletPool player_bullets;
 
 public:
