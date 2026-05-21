@@ -1,5 +1,5 @@
 # Galaga-game
-![Galaga Preview](https://via.placeholder.com)
+![Galaga Preview](assets/galaga.png)
 
 
 ## Описание
