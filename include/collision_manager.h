@@ -42,7 +42,8 @@ public:
       if (!enemy)
         continue;
 
-      if (Physic::isCollision(player.getRect(), enemy->getRect())) {
+      if (Physic::isCollision(player.getRect(), enemy->getRect()) &&
+          enemy->isActive()) {
         player.takeDamage(10.0f);
         enemy->takeDamage(10.0f);
       }
