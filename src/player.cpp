@@ -61,7 +61,6 @@ Player::~Player() { SDL_DestroyTexture(this->asset); }
 
 void Player::shoot(BulletPool &pool, EntityFactory &factory,
                    const GameContext &ctx) {
-  pool.spawn(transform.x + transform.w / 2.0f, transform.y, "player_bullet",
-             factory, ctx);
+  pool.spawn(transform.x + transform.w / 2.0f, transform.y, factory, ctx);
   shootTimer = shootCooldown;
 }

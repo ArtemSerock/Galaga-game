@@ -4,13 +4,12 @@
 #include "player_bullet.h"
 #include <string>
 
-void BulletPool::spawn(float x, float y, const std::string &type,
-                       EntityFactory &factory, const GameContext &ctx) {
+void BulletPool::spawn(float x, float y, EntityFactory &factory,
+                       const GameContext &ctx) {
   for (auto &slot : pool) {
     if (!slot) {
-      if (type == "player_bullet") {
-        slot = factory.createEntity<PlayerBullet>(type, x, y, ctx.renderer);
-      }
+      slot = factory.createEntity<PlayerBullet>("player_bullet", x, y,
+                                                ctx.renderer);
       return;
     }
 
