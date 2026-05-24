@@ -37,6 +37,12 @@ public:
    * @param renderer Обработчик окон
    */
   void draw(SDL_Renderer *renderer) const;
+
+  /**
+   * @brief Получение пула
+   * @return Пул объектов
+   */
+  const std::array<std::unique_ptr<Bee>, POOL_SIZE> &getPool() const;
 };
 
 #endif

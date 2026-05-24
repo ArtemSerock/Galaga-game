@@ -5,7 +5,6 @@
 #include "player_bullet.h"
 #include <array>
 #include <memory>
-#include <string>
 
 class EntityFactory;
 /**
@@ -25,8 +24,7 @@ public:
    * @param factory Фабрика сущностей
    * @param ctx Игровой контекст
    */
-  void spawn(float x, float y, const std::string &type, EntityFactory &factory,
-             const GameContext &ctx);
+  void spawn(float x, float y, EntityFactory &factory, const GameContext &ctx);
 
   /**
    * @brief Обработка частиц
@@ -40,6 +38,12 @@ public:
    * @param render Обработчик окна
    */
   void draw(SDL_Renderer *render) const;
+
+  /**
+   * @brief Получение пула
+   * @return Пул объектов
+   */
+  const std::array<std::unique_ptr<PlayerBullet>, POOL_SIZE> &getPool() const;
 };
 
 #endif
