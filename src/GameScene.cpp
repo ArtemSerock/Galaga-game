@@ -9,6 +9,8 @@ GameScene::GameScene(GameContext &ctx) : am(), factory(am) {
   player = factory.createEntity<Player>("player", ctx.width / 2.0,
                                         ctx.height / 2.0, ctx.renderer);
 
+  cm = std::make_unique<CollisionManager>(*player, player_bullets);
+
   if (!player) {
     std::cerr << "ERROR: Player was not created by factory!" << std::endl;
   }
@@ -30,6 +32,9 @@ void GameScene::update(GameContext &ctx, float deltaTime) {
     this->beeTimer = beeCooldown;
     std::cout << "SPAWN\n";
   }
+
+  cm->CheckCollisionEnemyAndBullet<Bee, 20>(bees.getPool());
+  cm->CheckCollisionPlayerAndEnemy<Bee, 20>(bees.getPool());
 }
 
 void GameScene::render(GameContext &ctx) const {

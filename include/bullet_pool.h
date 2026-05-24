@@ -43,7 +43,9 @@ public:
    * @brief Получение пула
    * @return Пул объектов
    */
-  const std::array<std::unique_ptr<PlayerBullet>, POOL_SIZE> &getPool() const;
+  const std::array<std::unique_ptr<PlayerBullet>, POOL_SIZE> &getPool() const {
+    return pool;
+  }
 };
 
 #endif
