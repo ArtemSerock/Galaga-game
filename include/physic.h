@@ -1,6 +1,7 @@
 #ifndef PHYSIC_H
 #define PHYSIC_H
-#include <SDL3/SDL_rect.h>
+#include "SDL3/SDL_rect.h"
+#include <SDL3/SDL.h>
 #include <array>
 #include <cmath>
 
@@ -31,6 +32,13 @@ public:
       arr[i] /= length;
     }
   }
+
+  /**
+   * @brief Вычисление координат дуг Безье
+   * @param p0,p1,p2,p3 точки
+   * @param t Время, за которое точка проходит по дуге
+   * @return точки дуги в зависимости от t
+   */
   static inline SDL_FPoint bezierPoints(const SDL_FPoint &p0,
                                         const SDL_FPoint &p1,
                                         const SDL_FPoint &p2,
@@ -42,10 +50,23 @@ public:
     float ttt = tt * t;
 
     SDL_FPoint p;
+    // Здесь мы используем формулу Безье
     p.x = uuu * p0.x + 3 * uu * t * p1.x + 3 * u * tt * p2.x + ttt * p3.x;
     p.y = uuu * p0.y + 3 * uu * t * p1.y + 3 * u * tt * p2.y + ttt * p3.y;
 
     return p;
+  }
+
+  /**
+   * @brief Проверка коллизии
+   * @param rect1 Первый прямоугольник
+   * @param rect2 второй прямоугольник
+   *
+   * @return true -- если прямоугольники соприкасаются, false -- иначе
+   */
+  static inline bool isCollision(const SDL_FRect &rect1,
+                                 const SDL_FRect &rect2) noexcept {
+    return SDL_HasRectIntersectionFloat(&rect1, &rect2);
   }
 };
 
