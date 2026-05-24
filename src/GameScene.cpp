@@ -16,7 +16,11 @@ GameScene::GameScene(GameContext &ctx) : am(), factory(am) {
   }
 }
 
-void GameScene::handleEvent(GameContext &ctx, const SDL_Event &event) {}
+void GameScene::handleEvent(GameContext &ctx, const SDL_Event &event) {
+  if (!player->isActive()) {
+    ctx.nextScene = SceneType::GAME_OVER;
+  }
+}
 
 void GameScene::update(GameContext &ctx, float deltaTime) {
   player->update(deltaTime, ctx, player_bullets, factory);
