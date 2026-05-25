@@ -6,6 +6,7 @@
 #include "assetManager.h"
 #include "bee_pool.h"
 #include "bullet_pool.h"
+#include "collision_manager.h"
 #include "entityFactory.h"
 #include "player.h"
 #include <memory>
@@ -25,6 +26,7 @@ private:
   float beeCooldown = 2.0f;
   float beeTimer = 0.0f;
   BulletPool player_bullets;
+  std::unique_ptr<CollisionManager> cm;
 
 public:
   /**

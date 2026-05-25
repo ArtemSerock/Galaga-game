@@ -1,6 +1,7 @@
 #include "bee_pool.h"
 #include "GameContext.h"
 #include "entityFactory.h"
+#include <memory>
 
 void BeePool::spawn(float x, float y, EntityFactory &factory,
                     const GameContext &ctx) {
