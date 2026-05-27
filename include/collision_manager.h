@@ -71,8 +71,10 @@ public:
         if (!enemy)
           continue;
 
-        if (Physic::isCollision(bullet->getRect(), enemy->getRect())) {
+        if (Physic::isCollision(bullet->getRect(), enemy->getRect()) &&
+            enemy->isActive()) {
           enemy->takeDamage(damage);
+          bullet->deactivate();
         }
       }
     }
