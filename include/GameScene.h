@@ -19,17 +19,17 @@
  */
 class GameScene : public IScene {
 private:
-  AssetManager am;
-  EntityFactory factory;
-  BeePool bees;
-  std::unique_ptr<Player> player;
-  float beeCooldown = 2.0f;
-  float beeTimer = 0.0f;
-  BulletPool player_bullets;
-  std::unique_ptr<CollisionManager> cm;
+  AssetManager am;                      ///< Менеджер текстур
+  EntityFactory factory;                ///< Фабрика объектов
+  BeePool bees;                         ///< Пул пчёл
+  std::unique_ptr<Player> player;       ///< Игрок
+  float beeCooldown = 2.0f;             ///< Время между появлением пчёл
+  float beeTimer = 0.0f;                ///< Таймер призыва пчёл
+  BulletPool player_bullets;            ///< Пуль пуль игрока
+  std::unique_ptr<CollisionManager> cm; ///< Менеджер коллизий
 
-  float shakeTime = 0.0f;
-  float shakeForce = 0.0f;
+  float shakeTime = 0.0f;  ///< Таймер тряски экрана
+  float shakeForce = 0.0f; ///< Сила тряски экрана
 
 public:
   /**

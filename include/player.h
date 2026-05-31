@@ -13,8 +13,9 @@ class EntityFactory;
  */
 class Player : public Entity {
 private:
-  float shootCooldown = 0.25f;
-  float shootTimer = 0.0f;
+  float shootCooldown =
+      0.25f;               ///< Время, которое должно пройти между выстрелами
+  float shootTimer = 0.0f; ///< Таймер до выстрела
 
 public:
   /**
