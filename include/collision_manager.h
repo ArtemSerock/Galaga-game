@@ -34,7 +34,7 @@ public:
    * 20 -- Общий размер пула для всех врагов
    */
   template <typename T, int size>
-  void CheckCollisionPlayerAndEnemy(
+  bool CheckCollisionPlayerAndEnemy(
       const std::array<std::unique_ptr<T>, size> &enemy_pool) {
 
     for (auto &enemy : enemy_pool) {
@@ -46,8 +46,10 @@ public:
           enemy->isActive()) {
         player.takeDamage(10.0f);
         enemy->takeDamage(10.0f);
+        return true;
       }
     }
+    return false;
   }
 
   /**

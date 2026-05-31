@@ -34,18 +34,43 @@ void GameScene::update(GameContext &ctx, float deltaTime) {
   if (this->beeTimer <= 0) {
     this->bees.spawn(ctx.width / 2.0f, 200, factory, ctx);
     this->beeTimer = beeCooldown;
-    std::cout << "SPAWN\n";
   }
 
   cm->CheckCollisionEnemyAndBullet<Bee, 20>(bees.getPool());
-  cm->CheckCollisionPlayerAndEnemy<Bee, 20>(bees.getPool());
+
+  bool isPlayerHit = cm->CheckCollisionPlayerAndEnemy<Bee, 20>(bees.getPool());
+  if (isPlayerHit) {
+    shakeTime = 0.4f;
+    shakeForce = 10.0f;
+  }
+
+  if (shakeTime > 0.0f) {
+    shakeTime -= deltaTime;
+
+    if (shakeTime <= 0.0f) {
+      shakeTime = 0.0;
+      shakeForce = 0.0f;
+    }
+  }
 }
 
 void GameScene::render(GameContext &ctx) const {
   SDL_SetRenderDrawColor(ctx.renderer, 255, 255, 190, 255);
   SDL_RenderClear(ctx.renderer);
+
+  if (shakeTime > 0.0f) {
+    int dx = (rand() % ((int)shakeForce * 2 + 1)) - (int)shakeForce;
+    int dy = (rand() % ((int)shakeForce * 2 + 1)) - (int)shakeForce;
+
+    SDL_Rect viewport = {dx, dy, ctx.width, ctx.height};
+    SDL_SetRenderViewport(ctx.renderer, &viewport);
+  }
+
   player_bullets.draw(ctx.renderer);
   bees.draw(ctx.renderer);
 
   player->draw(ctx.renderer);
+  if (shakeTime > 0.0f) {
+    SDL_SetRenderViewport(ctx.renderer, nullptr);
+  }
 }

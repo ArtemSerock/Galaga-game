@@ -28,6 +28,9 @@ private:
   BulletPool player_bullets;
   std::unique_ptr<CollisionManager> cm;
 
+  float shakeTime = 0.0f;
+  float shakeForce = 0.0f;
+
 public:
   /**
    * @brief Конструктор класса
