@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "GameContext.h"
+#include <SDL3_ttf/SDL_ttf.h>
 #include <iostream>
 
 Game::Game() {}
@@ -14,6 +15,10 @@ SDL_AppResult Game::Init(std::string_view title) {
     std::cerr << "Failed to create Window/Renderer: " << SDL_GetError()
               << std::endl;
     return SDL_APP_FAILURE;
+  }
+  if (!TTF_Init()) {
+    SDL_Log("Ошибка TTF_Init: %s", SDL_GetError());
+    SDL_Quit();
   }
 
   SDL_SetRenderVSync(ctx.renderer, 1);
