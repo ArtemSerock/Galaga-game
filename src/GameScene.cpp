@@ -20,36 +20,44 @@ void GameScene::handleEvent(GameContext &ctx, const SDL_Event &event) {
   if (!player->isActive()) {
     ctx.nextScene = SceneType::GAME_OVER;
   }
+
+  if (event.type == SDL_EVENT_KEY_UP) {
+    if (event.key.key == SDLK_ESCAPE)
+      isPause = !isPause;
+  }
 }
 
 void GameScene::update(GameContext &ctx, float deltaTime) {
-  player->update(deltaTime, ctx, player_bullets, factory);
-  player_bullets.update(deltaTime, ctx);
-  bees.update(deltaTime, ctx);
+  if (!isPause) {
+    player->update(deltaTime, ctx, player_bullets, factory);
+    player_bullets.update(deltaTime, ctx);
+    bees.update(deltaTime, ctx);
 
-  if (this->beeTimer > 0.0f) {
-    this->beeTimer -= deltaTime;
-  }
+    if (this->beeTimer > 0.0f) {
+      this->beeTimer -= deltaTime;
+    }
 
-  if (this->beeTimer <= 0) {
-    this->bees.spawn(ctx.width / 2.0f, 200, factory, ctx);
-    this->beeTimer = beeCooldown;
-  }
+    if (this->beeTimer <= 0) {
+      this->bees.spawn(ctx.width / 2.0f, 200, factory, ctx);
+      this->beeTimer = beeCooldown;
+    }
 
-  cm->CheckCollisionEnemyAndBullet<Bee, 20>(bees.getPool());
+    cm->CheckCollisionEnemyAndBullet<Bee, 20>(bees.getPool());
 
-  bool isPlayerHit = cm->CheckCollisionPlayerAndEnemy<Bee, 20>(bees.getPool());
-  if (isPlayerHit) {
-    shakeTime = 0.4f;
-    shakeForce = 10.0f;
-  }
+    bool isPlayerHit =
+        cm->CheckCollisionPlayerAndEnemy<Bee, 20>(bees.getPool());
+    if (isPlayerHit) {
+      shakeTime = 0.4f;
+      shakeForce = 10.0f;
+    }
 
-  if (shakeTime > 0.0f) {
-    shakeTime -= deltaTime;
+    if (shakeTime > 0.0f) {
+      shakeTime -= deltaTime;
 
-    if (shakeTime <= 0.0f) {
-      shakeTime = 0.0;
-      shakeForce = 0.0f;
+      if (shakeTime <= 0.0f) {
+        shakeTime = 0.0;
+        shakeForce = 0.0f;
+      }
     }
   }
 }

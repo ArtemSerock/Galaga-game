@@ -19,6 +19,7 @@
  */
 class GameScene : public IScene {
 private:
+  bool isPause = false;                 ///< Включена ли пауза
   AssetManager am;                      ///< Менеджер текстур
   EntityFactory factory;                ///< Фабрика объектов
   BeePool bees;                         ///< Пул пчёл
