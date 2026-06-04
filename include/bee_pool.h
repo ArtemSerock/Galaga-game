@@ -45,6 +45,10 @@ public:
   const std::array<std::unique_ptr<Bee>, POOL_SIZE> &getPool() const {
     return pool;
   }
+  /**
+   * @brief Уничтожение всех врагов на карте
+   */
+  void killAll();
 };
 
 #endif

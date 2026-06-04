@@ -34,3 +34,11 @@ void BeePool::draw(SDL_Renderer *renderer) const {
     }
   }
 }
+
+void BeePool::killAll() {
+  for (auto &slot : pool) {
+    if (slot && slot->isActive()) {
+      slot->deactivate();
+    }
+  }
+}
