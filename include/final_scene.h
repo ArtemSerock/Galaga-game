@@ -3,6 +3,7 @@
 
 #include "IScene.h"
 #include <SDL3/SDL.h>
+#include <SDL3_ttf/SDL_ttf.h>
 
 /**
  * @brief Класс сцены конца игры
@@ -11,8 +12,13 @@
  */
 class FinalScene : public IScene {
 private:
-  SDL_Texture *message;
-  SDL_FRect messageRect;
+  SDL_Texture *message;   ///< Текстура сообщения вывода очков
+  TTF_TextEngine *engine; ///< Движок шрифта
+  TTF_Font *font;         ///< Шрифт
+  TTF_Text *scoreText;    ///< Текст вывода очков
+  SDL_FRect messageRect;  ///< Позиция и размеры сообшения конца игры
+  float textX = 0.0f;     ///< Координата вывода очков по горизонтали
+  float textY = 0.0f;     ///< Координата вывода очков по горизонтали
 
 public:
   /**
