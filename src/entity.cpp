@@ -3,8 +3,9 @@
 #include <SDL3/SDL.h>
 
 Entity::Entity(SDL_Texture *tex, float x, float y, const EntityConfig &config)
-    : asset(tex), transform({x, y, 0.0f, 0.0f}), hp(config.hp),
+    : asset(tex), transform({x, y, 0.0f, 0.0f}), maxHp(config.hp),
       speed(config.speed) {
+  hp = maxHp;
   transform.w = config.width;
   transform.h = config.height;
 }
@@ -29,6 +30,9 @@ void Entity::takeDamage(float amount) {
   }
 }
 
-void Entity::activate() { this->active = true; }
+void Entity::activate() {
+  hp = maxHp;
+  this->active = true;
+}
 
 void Entity::update(float dt, const GameContext &ctx) {}

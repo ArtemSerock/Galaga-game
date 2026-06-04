@@ -13,7 +13,8 @@ protected:
   SDL_Texture *asset;  ///< Текстура объекта
   SDL_FRect transform; ///< Позиция и размер
 
-  float hp;           ///< здоровье
+  float maxHp; ///< Максимальное здоровье
+  float hp;
   float speed;        ///< скорость пикселей в секунду
   bool active = true; ///< флаг для удаления из игрового цикла
 
