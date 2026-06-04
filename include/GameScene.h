@@ -26,7 +26,7 @@ private:
   EntityFactory factory;                ///< Фабрика объектов
   BeePool bees;                         ///< Пул пчёл
   std::unique_ptr<Player> player;       ///< Игрок
-  float beeCooldown = 2.0f;             ///< Время между появлением пчёл
+  float beeCooldown = 1.0f;             ///< Время между появлением пчёл
   float beeTimer = 0.0f;                ///< Таймер призыва пчёл
   BulletPool player_bullets;            ///< Пуль пуль игрока
   std::unique_ptr<CollisionManager> cm; ///< Менеджер коллизий
