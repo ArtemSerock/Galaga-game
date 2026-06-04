@@ -8,6 +8,7 @@
 #include "bullet_pool.h"
 #include "physic.h"
 #include "player.h"
+#include "score_manager.h"
 #include <array>
 #include <memory>
 
@@ -61,7 +62,7 @@ public:
    * 20 -- Общий размер пула для всех врагов
    */
   template <typename T, int size>
-  void CheckCollisionEnemyAndBullet(
+  bool CheckCollisionEnemyAndBullet(
       const std::array<std::unique_ptr<T>, size> &enemy_pool, int damage = 10) {
     const auto &bullet_arr = bullet_pool.getPool();
 
@@ -77,6 +78,9 @@ public:
             enemy->isActive()) {
           enemy->takeDamage(damage);
           bullet->deactivate();
+          if (!enemy->isActive()) {
+            ScoreManager::getInstance().addScore(1);
+          }
         }
       }
     }
