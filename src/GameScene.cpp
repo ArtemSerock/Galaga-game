@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "GameContext.h"
+#include "SDL3/SDL_render.h"
 #include "assetManager.h"
 #include "entityFactory.h"
 #include "player.h"
@@ -11,6 +12,11 @@ GameScene::GameScene(GameContext &ctx) : am(), factory(am) {
 
   cm = std::make_unique<CollisionManager>(*player, player_bullets);
 
+  pause = IMG_LoadTexture(ctx.renderer, "../assets/pause.png");
+  float textureW = 0, textureH = 0;
+  SDL_GetTextureSize(pause, &textureW, &textureH);
+
+  pauseRect = {(ctx.width - textureW) / 2.0f, 0.0f, textureW, textureH};
   if (!player) {
     std::cerr << "ERROR: Player was not created by factory!" << std::endl;
   }
@@ -20,36 +26,44 @@ void GameScene::handleEvent(GameContext &ctx, const SDL_Event &event) {
   if (!player->isActive()) {
     ctx.nextScene = SceneType::GAME_OVER;
   }
+
+  if (event.type == SDL_EVENT_KEY_UP) {
+    if (event.key.key == SDLK_ESCAPE)
+      isPause = !isPause;
+  }
 }
 
 void GameScene::update(GameContext &ctx, float deltaTime) {
-  player->update(deltaTime, ctx, player_bullets, factory);
-  player_bullets.update(deltaTime, ctx);
-  bees.update(deltaTime, ctx);
+  if (!isPause) {
+    player->update(deltaTime, ctx, player_bullets, factory);
+    player_bullets.update(deltaTime, ctx);
+    bees.update(deltaTime, ctx);
 
-  if (this->beeTimer > 0.0f) {
-    this->beeTimer -= deltaTime;
-  }
+    if (this->beeTimer > 0.0f) {
+      this->beeTimer -= deltaTime;
+    }
 
-  if (this->beeTimer <= 0) {
-    this->bees.spawn(ctx.width / 2.0f, 200, factory, ctx);
-    this->beeTimer = beeCooldown;
-  }
+    if (this->beeTimer <= 0) {
+      this->bees.spawn(ctx.width / 2.0f, 200, factory, ctx);
+      this->beeTimer = beeCooldown;
+    }
 
-  cm->CheckCollisionEnemyAndBullet<Bee, 20>(bees.getPool());
+    cm->CheckCollisionEnemyAndBullet<Bee, 20>(bees.getPool());
 
-  bool isPlayerHit = cm->CheckCollisionPlayerAndEnemy<Bee, 20>(bees.getPool());
-  if (isPlayerHit) {
-    shakeTime = 0.4f;
-    shakeForce = 10.0f;
-  }
+    bool isPlayerHit =
+        cm->CheckCollisionPlayerAndEnemy<Bee, 20>(bees.getPool());
+    if (isPlayerHit) {
+      shakeTime = 0.4f;
+      shakeForce = 10.0f;
+    }
 
-  if (shakeTime > 0.0f) {
-    shakeTime -= deltaTime;
+    if (shakeTime > 0.0f) {
+      shakeTime -= deltaTime;
 
-    if (shakeTime <= 0.0f) {
-      shakeTime = 0.0;
-      shakeForce = 0.0f;
+      if (shakeTime <= 0.0f) {
+        shakeTime = 0.0;
+        shakeForce = 0.0f;
+      }
     }
   }
 }
@@ -73,4 +87,10 @@ void GameScene::render(GameContext &ctx) const {
   if (shakeTime > 0.0f) {
     SDL_SetRenderViewport(ctx.renderer, nullptr);
   }
+
+  if (isPause) {
+    SDL_RenderTexture(ctx.renderer, pause, NULL, &pauseRect);
+  }
 }
+
+GameScene::~GameScene() { SDL_DestroyTexture(pause); }
