@@ -79,11 +79,12 @@ public:
           enemy->takeDamage(damage);
           bullet->deactivate();
           if (!enemy->isActive()) {
-            ScoreManager::getInstance().addScore(1);
+            return true;
           }
         }
       }
     }
+    return false;
   }
 };
 
