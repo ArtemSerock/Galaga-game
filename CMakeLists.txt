@@ -24,18 +24,24 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/nlohmann/json
     GIT_TAG master
 )
+include(FetchContent)
+FetchContent_Declare(
+  SDL3_ttf
+  GIT_REPOSITORY https://github.com/libsdl-org/SDL_ttf
+  GIT_TAG main
+)
 set(SDL_TEST OFF CACHE BOOL "" FORCE)
 set(SDL_AUDIO OFF CACHE BOOL "" FORCE)
 set(SDL_HAPTIC OFF CACHE BOOL "" FORCE)
 set(SDL_HIDAPI OFF CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(SDL3 SDL3_image json)
+FetchContent_MakeAvailable(SDL3 SDL3_image json SDL3_ttf)
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 add_executable(Galaga ${SOURCES})
 
 target_include_directories(Galaga PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-target_link_libraries(Galaga PRIVATE SDL3::SDL3 SDL3_image nlohmann_json::nlohmann_json)
+target_link_libraries(Galaga PRIVATE SDL3::SDL3 SDL3_image::SDL3_image nlohmann_json::nlohmann_json SDL3_ttf::SDL3_ttf)
 
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/src/configs"
      DESTINATION "${CMAKE_BINARY_DIR}")
