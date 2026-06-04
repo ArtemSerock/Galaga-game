@@ -26,9 +26,9 @@ cd Galaga-game
 ### Linux
 ```bash
 mkdir build
-cmake -S . -B build
+cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -G Ninja -DCMAKE_BUILD_TYPE=Relese
 cd build
-make
+ninja
 ```
 
 ### Запуск
