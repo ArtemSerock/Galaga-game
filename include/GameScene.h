@@ -19,6 +19,8 @@
  */
 class GameScene : public IScene {
 private:
+  SDL_Texture *pause;                   ///< Текстура пауза
+  SDL_FRect pauseRect;                  ///< Область надписи паузы
   bool isPause = false;                 ///< Включена ли пауза
   AssetManager am;                      ///< Менеджер текстур
   EntityFactory factory;                ///< Фабрика объектов
@@ -60,6 +62,11 @@ public:
    * @param ctx игровой контекст
    */
   void render(GameContext &ctx) const override;
+
+  /**
+   * @brief Деструктор Класса
+   */
+  ~GameScene();
 };
 
 #endif
