@@ -1,9 +1,9 @@
 #include "GameScene.h"
 #include "GameContext.h"
-#include "SDL3/SDL_render.h"
 #include "assetManager.h"
 #include "entityFactory.h"
 #include "player.h"
+#include "score_manager.h"
 #include <memory>
 
 GameScene::GameScene(GameContext &ctx) : am(), factory(am) {
@@ -48,7 +48,11 @@ void GameScene::update(GameContext &ctx, float deltaTime) {
       this->beeTimer = beeCooldown;
     }
 
-    cm->CheckCollisionEnemyAndBullet<Bee, 20>(bees.getPool());
+    bool isEnemyDestroy =
+        cm->CheckCollisionEnemyAndBullet<Bee, 20>(bees.getPool());
+    if (isEnemyDestroy) {
+      ScoreManager::getInstance().addScore(1);
+    }
 
     bool isPlayerHit =
         cm->CheckCollisionPlayerAndEnemy<Bee, 20>(bees.getPool());
