@@ -41,14 +41,13 @@ add_executable(Galaga ${SOURCES})
 
 target_include_directories(Galaga PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-target_link_libraries(Galaga PRIVATE SDL3::SDL3 SDL3_image::SDL3_image nlohmann_json::nlohmann_json SDL3_ttf::SDL3_ttf)
+target_link_libraries(Galaga PRIVATE SDL3::SDL3 SDL3_image::SDL3_image nlohmann_json SDL3_ttf::SDL3_ttf)
 
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/src/configs"
      DESTINATION "${CMAKE_BINARY_DIR}")
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/assets"
      DESTINATION "${CMAKE_BINARY_DIR}")
 
-add_compile_options(-fno-exceptions -fno-rtti)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 
