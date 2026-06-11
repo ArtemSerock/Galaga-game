@@ -7,8 +7,8 @@
 #include <memory>
 
 GameScene::GameScene(GameContext &ctx) : am(), factory(am) {
-  player = factory.createEntity<Player>("player", ctx.width / 2.0,
-                                        ctx.height / 2.0, ctx.renderer);
+  player = factory.createEntity<Player>(
+      "player", ctx.width / 2.0f, (ctx.height / 3.0f) * 2.0f, ctx.renderer);
 
   cm = std::make_unique<CollisionManager>(*player, player_bullets);
 
