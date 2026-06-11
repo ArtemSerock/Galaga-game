@@ -5,14 +5,41 @@
 
 Bee::Bee(SDL_Texture *tex, float x, float y, const EntityConfig &config)
     : Entity(tex, x, y, config) {
-  p0 = {x, y};
-  p1 = p2 = p3 = p0;
-  t = 1.0f;
+  targetPoint = {x, y};
+
+  transform.x = x;
+  transform.y = -transform.h;
+
+  p0 = targetPoint;
+  p1 = p0;
+  p2 = p0;
+  p3 = p0;
+  t = 0.0f;
+
+  startSpawnEffect();
 }
 
 Bee::~Bee() { SDL_DestroyTexture(this->asset); }
 
 void Bee::update(float dt, const GameContext &ctx) {
+  if (isSpawning) {
+    alpha += spawnSpeed * dt;
+    if (alpha >= 1.0f) {
+      alpha = 1.0f;
+      isSpawning = false;
+
+      transform.x = targetPoint.x;
+      transform.y = targetPoint.y;
+
+      generateNewPath(ctx);
+    } else {
+      float startY = -transform.h;
+      transform.y = startY + (targetPoint.y - startY) * alpha;
+      transform.x = targetPoint.x;
+    }
+    return;
+  }
+
   if (t >= 1.0f) {
     generateNewPath(ctx);
   }
@@ -58,9 +85,37 @@ void Bee::generateNewPath(const GameContext &ctx) {
 }
 
 void Bee::SetPosition(float x, float y) {
+  targetPoint = {x, y};
+
   transform.x = x;
-  transform.y = y;
-  p0 = {x, y};
-  p1 = p2 = p3 = p0;
-  t = 1.0f;
+  transform.y = -transform.h;
+
+  p0 = targetPoint;
+  p1 = p0;
+  p2 = p0;
+  p3 = p0;
+
+  t = 0.0f;
+
+  startSpawnEffect();
 }
+
+void Bee::startSpawnEffect() {
+  isSpawning = true;
+  alpha = 0.0f;
+}
+
+void Bee::draw(SDL_Renderer *renderer) const {
+  if (!active)
+    return;
+
+  Uint8 sdlAlpha = (Uint8)(alpha * 255.0f);
+
+  SDL_SetTextureAlphaMod(this->asset, sdlAlpha);
+
+  SDL_RenderTexture(renderer, this->asset, NULL, &transform);
+
+  SDL_SetTextureAlphaMod(this->asset, 255);
+}
+
+bool Bee::isReady() const { return !isSpawning; }

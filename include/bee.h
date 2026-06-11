@@ -38,12 +38,33 @@ public:
    */
   void SetPosition(float x, float y);
 
+  /**
+   * @brief Запускает эффект появления пчелы
+   */
+  void startSpawnEffect();
+
+  /**
+   * @brief Переопределение метода отрисовки
+   * @param renderer Рендер игры
+   */
+  void draw(SDL_Renderer *renderer) const override;
+
+  /**
+   * @brief Проверка готовности пчелы
+   */
+  bool isReady() const;
+
 private:
+  bool isSpawning = true;
+  float alpha = 0.0f;
+  float spawnSpeed = 2.0f;
   float t = 0.0f;
   float x;
   float y;
   float speed = 0.4f;
   SDL_FPoint p0, p1, p2, p3;
+
+  SDL_FPoint targetPoint;
 
   /**
    * @brief Генерация маршрута для врага

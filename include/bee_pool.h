@@ -18,12 +18,13 @@ private:
 public:
   /**
    * @brief Инициализация врагов
-   * @param x Координата по горизонтали
-   * @param y Координата по вертикали
    * @param factory Фабрика сущностей
    * @param ctx Игровой контекст
+   * @param playerX Координата игрока по горизонтали
+   * @param playerY Координата игрока по вертикали
    */
-  void spawn(float x, float y, EntityFactory &factory, const GameContext &ctx);
+  void spawn(EntityFactory &factory, const GameContext &ctx, float playerX,
+             float playerY);
 
   /**
    * @brief Обработка Пчёл

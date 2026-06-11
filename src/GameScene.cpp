@@ -44,7 +44,7 @@ void GameScene::update(GameContext &ctx, float deltaTime) {
     }
 
     if (this->beeTimer <= 0) {
-      this->bees.spawn(ctx.width / 2.0f, 200, factory, ctx);
+      this->bees.spawn(factory, ctx, player->getRect().x, player->getRect().y);
       this->beeTimer = beeCooldown;
     }
 
