@@ -13,8 +13,8 @@ protected:
   SDL_Texture *asset;  ///< Текстура объекта
   SDL_FRect transform; ///< Позиция и размер
 
-  float maxHp; ///< Максимальное здоровье
-  float hp;
+  float maxHp;        ///< Максимальное здоровье
+  float hp;           ///< Текущее здоровье
   float speed;        ///< скорость пикселей в секунду
   bool active = true; ///< флаг для удаления из игрового цикла
 
@@ -75,6 +75,12 @@ public:
    * @param amount Урон, который будет нанесён
    */
   virtual void takeDamage(float amount);
+
+  /**
+   * @brief Получение текущего здоровья
+   * @return здоровье объекта
+   */
+  const float getHP() const;
 };
 
 #endif

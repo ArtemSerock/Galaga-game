@@ -36,3 +36,5 @@ void Entity::activate() {
 }
 
 void Entity::update(float dt, const GameContext &ctx) {}
+
+const float Entity::getHP() const { return this->hp; }
