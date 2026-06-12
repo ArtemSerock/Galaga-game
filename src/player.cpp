@@ -49,3 +49,9 @@ void Player::shoot(BulletPool &pool, EntityFactory &factory,
   pool.spawn(transform.x + transform.w / 2.0f, transform.y, factory, ctx);
   shootTimer = shootCooldown;
 }
+
+const bool Player::getWasSafe() const { return this->wasActivateSafe; }
+
+void Player::switchSafeStatus() {
+  this->wasActivateSafe = !this->wasActivateSafe;
+}

@@ -17,6 +17,9 @@ private:
       0.25f;               ///< Время, которое должно пройти между выстрелами
   float shootTimer = 0.0f; ///< Таймер до выстрела
 
+  bool wasActivateSafe =
+      false; ///< Статус спасения игрока от мгновенного поражения
+
 public:
   /**
    * @brief Конструктор класса
@@ -54,6 +57,17 @@ public:
    * @param factory фабрика объектов
    */
   void shoot(BulletPool &pool, EntityFactory &factory, const GameContext &ctx);
+
+  /**
+   * @brief Выводит, сработало ли спасение от гибели
+   * @return true -- если спасение уже было использовано, false -- иначе
+   */
+  const bool getWasSafe() const;
+
+  /**
+   * @brief Переключение статуса спасения игрока от мгновенного поражения
+   */
+  void switchSafeStatus();
 };
 
 #endif
