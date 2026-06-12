@@ -69,6 +69,11 @@ void GameScene::update(GameContext &ctx, float deltaTime) {
         shakeForce = 0.0f;
       }
     }
+
+    if (player->getHP() <= 10 && !player->getWasSafe()) {
+      bees.killAll();
+      player->switchSafeStatus();
+    }
   }
 }
 
