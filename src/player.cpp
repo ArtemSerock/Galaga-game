@@ -26,7 +26,6 @@ void Player::update(float dt, const GameContext &ctx, BulletPool &pool,
   if (keys[SDL_SCANCODE_D] || keys[SDL_SCANCODE_RIGHT])
     directionX += 1.0f;
 
-  // 2. Стрельба
   if (keys[SDL_SCANCODE_SPACE] && shootTimer <= 0.0f) {
     this->shoot(pool, factory, ctx);
     std::cout << "SHOOT" << std::endl;

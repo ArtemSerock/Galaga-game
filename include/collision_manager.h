@@ -46,7 +46,7 @@ public:
       if (Physic::isCollision(player.getRect(), enemy->getRect()) &&
           enemy->isActive()) {
         player.takeDamage(10.0f);
-        enemy->takeDamage(10.0f);
+        enemy->takeDamage(10000.0f);
         return true;
       }
     }
