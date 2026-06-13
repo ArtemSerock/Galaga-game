@@ -2,8 +2,7 @@
 #define MENU_SCENE_H
 #include "GameContext.h"
 #include "IScene.h"
-#include "SDL3/SDL_rect.h"
-#include "SDL3/SDL_render.h"
+#include <SDL3/SDL.h>
 
 /**
  * @brief Класс сцены главного меню
@@ -17,6 +16,8 @@ private:
   SDL_FRect logoRect;
   SDL_Texture *label;
   SDL_FRect labelRect;
+  SDL_Texture *control;
+  SDL_FRect controlRect;
 
 public:
   /**

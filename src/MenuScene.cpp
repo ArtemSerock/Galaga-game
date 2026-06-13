@@ -5,6 +5,7 @@
 MenuScene::MenuScene(GameContext &ctx) {
   logo = IMG_LoadTexture(ctx.renderer, "../assets/logo.png");
   label = IMG_LoadTexture(ctx.renderer, "../assets/press_space.png");
+  control = IMG_LoadTexture(ctx.renderer, "../assets/control.png");
 
   float texW = 0, texH = 0;
   SDL_GetTextureSize(logo, &texW, &texH);
@@ -12,11 +13,16 @@ MenuScene::MenuScene(GameContext &ctx) {
   float labelW = 0, labelH = 0;
   SDL_GetTextureSize(label, &labelW, &labelH);
 
+  float controlW = 0, controlH = 0;
+  SDL_GetTextureSize(control, &controlW, &controlH);
+
   logoRect = {(ctx.width - texW) / 2.0f, (ctx.height - texH) / 2.0f, texW,
               texH};
 
   labelRect = {(ctx.width - labelW) / 2.0f, (ctx.height - labelH) / 2.0f + texH,
                labelW, labelH};
+
+  controlRect = {(ctx.width - controlW) / 2.0f, 0, controlW, controlH};
 }
 
 void MenuScene::handleEvent(GameContext &ctx, const SDL_Event &event) {
@@ -36,9 +42,11 @@ void MenuScene::render(GameContext &ctx) const {
   SDL_RenderClear(ctx.renderer);
   SDL_RenderTexture(ctx.renderer, logo, NULL, &logoRect);
   SDL_RenderTexture(ctx.renderer, label, NULL, &labelRect);
+  SDL_RenderTexture(ctx.renderer, control, NULL, &controlRect);
 }
 
 MenuScene::~MenuScene() {
   SDL_DestroyTexture(logo);
   SDL_DestroyTexture(label);
+  SDL_DestroyTexture(control);
 }
