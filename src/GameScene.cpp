@@ -28,6 +28,10 @@ void GameScene::handleEvent(GameContext &ctx, const SDL_Event &event) {
     if (event.key.key == SDLK_ESCAPE)
       isPause = !isPause;
   }
+
+  if (event.type == SDL_EVENT_PLAYER_DIED) {
+    ctx.nextScene = SceneType::GAME_OVER;
+  }
 }
 
 void GameScene::update(GameContext &ctx, float deltaTime) {
@@ -71,9 +75,6 @@ void GameScene::update(GameContext &ctx, float deltaTime) {
       bees.killAll();
       player->switchSafeStatus();
     }
-  }
-  if (!player->isActive()) {
-    ctx.nextScene = SceneType::GAME_OVER;
   }
 }
 
