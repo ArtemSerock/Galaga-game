@@ -68,6 +68,8 @@ public:
    * @brief Переключение статуса спасения игрока от мгновенного поражения
    */
   void switchSafeStatus();
+
+  void takeDamage(float amount) override;
 };
 
 #endif

@@ -1,5 +1,7 @@
 #include "player.h"
 #include "GameContext.h"
+#include "SDL3/SDL_events.h"
+#include "SDL3/SDL_stdinc.h"
 #include "bullet_pool.h"
 #include "entity.h"
 #include "entityFactory.h"
@@ -53,4 +55,17 @@ const bool Player::getWasSafe() const { return this->wasActivateSafe; }
 
 void Player::switchSafeStatus() {
   this->wasActivateSafe = !this->wasActivateSafe;
+}
+
+void Player::takeDamage(float amount) {
+  this->hp -= amount;
+
+  if (this->hp <= 0) {
+    this->deactivate();
+
+    SDL_Event event;
+    SDL_zero(event);
+    event.type = SDL_EVENT_PLAYER_DIED;
+    SDL_PushEvent(&event);
+  }
 }

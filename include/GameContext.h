@@ -1,10 +1,13 @@
 #ifndef GAME_CONTEXT_H
 #define GAME_CONTEXT_H
 #include "IScene.h"
+#include "SDL3/SDL_stdinc.h"
 #include <SDL3/SDL.h>
 #include <memory>
 
 enum class SceneType { NONE, MENU, GAME, GAME_OVER };
+
+inline Uint32 SDL_EVENT_PLAYER_DIED = 0;
 
 /**
  * @brief Игровой контекст
