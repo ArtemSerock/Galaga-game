@@ -27,6 +27,7 @@ public:
   SDL_AppResult Init(std::string_view title);
   /**
    * @brief Обработка событий
+   * @param event Событие игры
    */
   SDL_AppResult HandleEvents(SDL_Event *event);
   /**
@@ -45,9 +46,9 @@ private:
    */
   void Clean();
 
-  uint64_t lastTicks = 0;
+  uint64_t lastTicks = 0; ///< Время, прошедшее с последнего кадра(мс)
 
-  GameContext ctx;
+  GameContext ctx; ///< Игровой контекст
 };
 
 #endif // GAME_H
