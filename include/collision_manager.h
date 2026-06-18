@@ -8,7 +8,6 @@
 #include "bullet_pool.h"
 #include "physic.h"
 #include "player.h"
-#include "score_manager.h"
 #include <array>
 #include <memory>
 
@@ -67,9 +66,9 @@ public:
     const auto &bullet_arr = bullet_pool.getPool();
 
     for (auto &bullet : bullet_arr) {
-      if (!bullet && !bullet->isActive())
+      if (!bullet || !bullet->isActive()) {
         continue;
-
+      }
       for (auto &enemy : enemy_pool) {
         if (!enemy)
           continue;
