@@ -67,7 +67,7 @@ public:
     const auto &bullet_arr = bullet_pool.getPool();
 
     for (auto &bullet : bullet_arr) {
-      if (!bullet)
+      if (!bullet && !bullet->isActive())
         continue;
 
       for (auto &enemy : enemy_pool) {
