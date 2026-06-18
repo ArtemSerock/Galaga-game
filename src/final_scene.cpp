@@ -15,7 +15,7 @@ FinalScene::FinalScene(GameContext &ctx) {
   int score = ScoreManager::getInstance().getScore();
   scoreText = TTF_CreateText(engine, font, "", 0);
   if (scoreText) {
-    std::string strScores = std::format("Очки: {}", score);
+    std::string strScores = std::format("Очки: {}/100", score);
 
     TTF_SetTextString(scoreText, strScores.c_str(), 0);
     TTF_SetTextColor(scoreText, 0, 0, 0, 255);
