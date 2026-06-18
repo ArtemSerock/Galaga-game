@@ -22,7 +22,7 @@
         "height": 50.0
   },
     "big_guy": {
-        "hp": 50.0,
+        "hp": 20.0,
         "speed": 300.0,
         "asset": "assets/big_guy.png",
         "width": 100.0,
