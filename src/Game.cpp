@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "GameContext.h"
+#include "SDL3/SDL_events.h"
 #include <SDL3_ttf/SDL_ttf.h>
 #include <iostream>
 
@@ -18,8 +19,10 @@ SDL_AppResult Game::Init(std::string_view title) {
   }
   if (!TTF_Init()) {
     SDL_Log("Ошибка TTF_Init: %s", SDL_GetError());
-    SDL_Quit();
+    return SDL_APP_FAILURE;
   }
+
+  SDL_EVENT_PLAYER_DIED = SDL_RegisterEvents(1);
 
   SDL_SetRenderVSync(ctx.renderer, 1);
 

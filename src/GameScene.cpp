@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "GameContext.h"
 #include "assetManager.h"
+#include "big_guy.h"
 #include "entityFactory.h"
 #include "player.h"
 #include "score_manager.h"
@@ -28,6 +29,10 @@ void GameScene::handleEvent(GameContext &ctx, const SDL_Event &event) {
     if (event.key.key == SDLK_ESCAPE)
       isPause = !isPause;
   }
+
+  if (event.type == SDL_EVENT_PLAYER_DIED) {
+    ctx.nextScene = SceneType::GAME_OVER;
+  }
 }
 
 void GameScene::update(GameContext &ctx, float deltaTime) {
@@ -35,24 +40,35 @@ void GameScene::update(GameContext &ctx, float deltaTime) {
     player->update(deltaTime, ctx, player_bullets, factory);
     player_bullets.update(deltaTime, ctx);
     bees.update(deltaTime, ctx);
+    big_guy_pool.update(deltaTime, ctx);
 
     if (this->beeTimer > 0.0f) {
       this->beeTimer -= deltaTime;
+    }
+    if (this->bigEnemyTimer > 0.0f) {
+      this->bigEnemyTimer -= deltaTime;
     }
 
     if (this->beeTimer <= 0) {
       this->bees.spawn(factory, ctx, player->getRect().x, player->getRect().y);
       this->beeTimer = beeCooldown;
     }
+    if (this->bigEnemyTimer <= 0) {
+      this->big_guy_pool.spawn(factory, ctx, player->getRect().x,
+                               player->getRect().y);
+      this->bigEnemyTimer = bigEnemyCooldown;
+    }
 
     bool isEnemyDestroy =
-        cm->CheckCollisionEnemyAndBullet<Bee, 20>(bees.getPool());
+        cm->CheckCollisionEnemyAndBullet<Bee, 20>(bees.getPool()) ||
+        cm->CheckCollisionEnemyAndBullet<BigGuy, 2>(big_guy_pool.getPool());
     if (isEnemyDestroy) {
       ScoreManager::getInstance().addScore(1);
     }
 
     bool isPlayerHit =
-        cm->CheckCollisionPlayerAndEnemy<Bee, 20>(bees.getPool());
+        cm->CheckCollisionPlayerAndEnemy<Bee, 20>(bees.getPool()) ||
+        cm->CheckCollisionPlayerAndEnemy<BigGuy, 2>(big_guy_pool.getPool());
     if (isPlayerHit) {
       shakeTime = 0.4f;
       shakeForce = 10.0f;
@@ -69,11 +85,9 @@ void GameScene::update(GameContext &ctx, float deltaTime) {
 
     if (player->getHP() <= 10 && !player->getWasSafe()) {
       bees.killAll();
+      big_guy_pool.killAll();
       player->switchSafeStatus();
     }
-  }
-  if (!player->isActive()) {
-    ctx.nextScene = SceneType::GAME_OVER;
   }
 }
 
@@ -91,6 +105,7 @@ void GameScene::render(GameContext &ctx) const {
 
   player_bullets.draw(ctx.renderer);
   bees.draw(ctx.renderer);
+  big_guy_pool.draw(ctx.renderer);
 
   player->draw(ctx.renderer);
   if (shakeTime > 0.0f) {

@@ -3,6 +3,7 @@
 
 #include "assetManager.h"
 #include "bee.h"
+#include "big_guy.h"
 #include "particleConfig.h"
 #include "player.h"
 #include "player_bullet.h"
@@ -82,6 +83,10 @@ public:
 
       if (type == "bee") {
         return std::make_unique<Bee>(tex, x, y, eConfig);
+      }
+    } else if constexpr (std::is_same_v<T, BigGuy>) {
+      if (type == "big_guy") {
+        return std::make_unique<BigGuy>(tex, x, y, eConfig);
       }
     }
 
