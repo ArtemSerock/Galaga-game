@@ -5,6 +5,7 @@
 #include "IScene.h"
 #include "assetManager.h"
 #include "bee_pool.h"
+#include "big_guy_pool.h"
 #include "bullet_pool.h"
 #include "collision_manager.h"
 #include "entityFactory.h"
@@ -19,16 +20,19 @@
  */
 class GameScene : public IScene {
 private:
-  SDL_Texture *pause;                   ///< Текстура пауза
-  SDL_FRect pauseRect;                  ///< Область надписи паузы
-  bool isPause = false;                 ///< Включена ли пауза
-  AssetManager am;                      ///< Менеджер текстур
-  EntityFactory factory;                ///< Фабрика объектов
-  BeePool bees;                         ///< Пул пчёл
-  std::unique_ptr<Player> player;       ///< Игрок
-  float beeCooldown = 1.0f;             ///< Время между появлением пчёл
-  float beeTimer = 0.0f;                ///< Таймер призыва пчёл
-  BulletPool player_bullets;            ///< Пуль пуль игрока
+  SDL_Texture *pause;             ///< Текстура пауза
+  SDL_FRect pauseRect;            ///< Область надписи паузы
+  bool isPause = false;           ///< Включена ли пауза
+  AssetManager am;                ///< Менеджер текстур
+  EntityFactory factory;          ///< Фабрика объектов
+  BeePool bees;                   ///< Пул пчёл
+  std::unique_ptr<Player> player; ///< Игрок
+  float beeCooldown = 1.0f;       ///< Время между появлением пчёл
+  float beeTimer = 0.0f;          ///< Таймер призыва пчёл
+  BulletPool player_bullets;      ///< Пуль пуль игрока
+  BigGuyPool big_guy_pool;        ///< Пуль больших врагов
+  float bigEnemyCooldown = 30.0f; ///< Время между появлениями больших врагов
+  float bigEnemyTimer = 30.0f;    ///< Таймер призыва больших врагов
   std::unique_ptr<CollisionManager> cm; ///< Менеджер коллизий
 
   float shakeTime = 0.0f;  ///< Таймер тряски экрана
