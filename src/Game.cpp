@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "GameContext.h"
 #include "SDL3/SDL_events.h"
+#include "configManager.h"
 #include <SDL3_ttf/SDL_ttf.h>
 #include <iostream>
 
@@ -28,6 +29,7 @@ SDL_AppResult Game::Init(std::string_view title) {
 
   lastTicks = SDL_GetTicksNS();
   ctx.nextScene = SceneType::MENU;
+  ConfigManager::load("entities", "configs/entities.json");
 
   return SDL_APP_CONTINUE;
 }
