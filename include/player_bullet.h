@@ -10,8 +10,11 @@
  * @brief Класс пули игрока
  */
 class PlayerBullet : public Particle {
-  const std::string type = "player_bullet"; ///< Тип частицы
 public:
+  /**
+   * @brief Получение типа
+   */
+  static constexpr const std::string getType() { return "player_bullet"; }
   /**
    * @brief Конструктор Класса
    * @param tex Текстура

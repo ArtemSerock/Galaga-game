@@ -55,12 +55,16 @@ public:
    */
   bool isReady() const;
 
+  /**
+   * @brief Получение типа
+   */
+  static constexpr const std::string getType() { return "bee"; }
+
 private:
   bool isSpawning = true;
   float alpha = 0.0f;
   float spawnSpeed = 2.0f;
   float t = 0.0f;
-  const std::string type = "bee";
   float x;
   float y;
   float speed = 0.4f;

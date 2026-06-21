@@ -92,17 +92,10 @@ public:
    */
   void setPosition(float x, float y);
 
-  /**
-   * @brief Получение типа частицы
-   */
-  std::string getType() const;
-
 protected:
   SDL_Texture *tex;    ///< Текстура частицы
   SDL_FRect transform; ///< Позиция и размер
   bool active = true;  ///< Флаг для удаления из игрового цикла
-
-  const std::string type; ///< Тип частицы
 
   float velocity_y; ///< Скорость по веритикали в пикселях в секунду
   float velocity_x; ///< Скорость по горизонтали в пикселях в секунду

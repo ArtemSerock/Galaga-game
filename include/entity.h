@@ -14,8 +14,6 @@ protected:
   SDL_Texture *asset;  ///< Текстура объекта
   SDL_FRect transform; ///< Позиция и размер
 
-  const std::string type; ///< Тип объекта
-
   float maxHp;        ///< Максимальное здоровье
   float hp;           ///< Текущее здоровье
   float speed;        ///< скорость пикселей в секунду
@@ -84,11 +82,6 @@ public:
    * @return здоровье объекта
    */
   const float getHP() const;
-
-  /**
-   * @brief Получение типа объекта
-   */
-  std::string getType() const;
 };
 
 #endif

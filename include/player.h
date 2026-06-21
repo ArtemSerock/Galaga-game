@@ -20,7 +20,6 @@ private:
 
   bool wasActivateSafe =
       false; ///< Статус спасения игрока от мгновенного поражения
-  const std::string type = "player"; ///< Тип объекта
 
 public:
   /**
@@ -72,6 +71,11 @@ public:
   void switchSafeStatus();
 
   void takeDamage(float amount) override;
+
+  /**
+   * @brief Получение типа
+   */
+  static constexpr const std::string getType() { return "player"; }
 };
 
 #endif
