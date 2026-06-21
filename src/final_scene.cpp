@@ -5,8 +5,8 @@
 #include <SDL3_image/SDL_image.h>
 #include <format>
 
-FinalScene::FinalScene(GameContext &ctx) {
-  message = IMG_LoadTexture(ctx.renderer, "../assets/final.png");
+FinalScene::FinalScene(GameContext &ctx) : am() {
+  message = am.getTexture("../assets/final.png", ctx.renderer);
 
   engine = TTF_CreateRendererTextEngine(ctx.renderer);
 

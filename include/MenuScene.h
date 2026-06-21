@@ -2,6 +2,7 @@
 #define MENU_SCENE_H
 #include "GameContext.h"
 #include "IScene.h"
+#include "assetManager.h"
 #include <SDL3/SDL.h>
 
 /**
@@ -12,6 +13,7 @@
  */
 class MenuScene : public IScene {
 private:
+  AssetManager am;
   SDL_Texture *logo;
   SDL_FRect logoRect;
   SDL_Texture *label;

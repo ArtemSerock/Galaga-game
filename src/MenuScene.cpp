@@ -2,10 +2,10 @@
 #include "GameContext.h"
 #include <SDL3_image/SDL_image.h>
 
-MenuScene::MenuScene(GameContext &ctx) {
-  logo = IMG_LoadTexture(ctx.renderer, "../assets/logo.png");
-  label = IMG_LoadTexture(ctx.renderer, "../assets/press_space.png");
-  control = IMG_LoadTexture(ctx.renderer, "../assets/control.png");
+MenuScene::MenuScene(GameContext &ctx) : am() {
+  logo = am.getTexture("../assets/logo.png", ctx.renderer);
+  label = am.getTexture("../assets/press_space.png", ctx.renderer);
+  control = am.getTexture("../assets/control.png", ctx.renderer);
 
   float texW = 0, texH = 0;
   SDL_GetTextureSize(logo, &texW, &texH);

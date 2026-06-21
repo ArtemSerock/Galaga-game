@@ -13,7 +13,7 @@ GameScene::GameScene(GameContext &ctx) : am(), factory(am) {
 
   cm = std::make_unique<CollisionManager>(*player, player_bullets);
 
-  pause = IMG_LoadTexture(ctx.renderer, "../assets/pause.png");
+  pause = am.getTexture("../assets/pause.png", ctx.renderer);
   float textureW = 0, textureH = 0;
   SDL_GetTextureSize(pause, &textureW, &textureH);
 

@@ -2,6 +2,7 @@
 #define FINAL_SCENE_H
 
 #include "IScene.h"
+#include "assetManager.h"
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 
@@ -12,6 +13,7 @@
  */
 class FinalScene : public IScene {
 private:
+  AssetManager am;
   SDL_Texture *message;   ///< Текстура сообщения вывода очков
   TTF_TextEngine *engine; ///< Движок шрифта
   TTF_Font *font;         ///< Шрифт
