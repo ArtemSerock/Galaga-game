@@ -2,21 +2,17 @@
 #define ENTITY_FACTORY_H
 
 #include "assetManager.h"
-#include "bee.h"
-#include "big_guy.h"
-#include "configManager.h"
 #include "particleConfig.h"
 #include "player.h"
-#include "player_bullet.h"
 #include <iostream>
 #include <memory>
 #include <nlohmann/json.hpp>
+#include <particle.h>
 #include <string>
-#include <type_traits>
 
 template <typename T>
 concept IsEnemyOrParticle =
-    std::is_base_of<Entity, T> || std::is_base_of<Particle, T>;
+    std::is_base_of_v<Entity, T> || std::is_base_of_v<Particle, T>;
 
 /**
  * @brief Фабрика сущностей
