@@ -4,11 +4,13 @@
 #include "GameContext.h"
 #include "particle.h"
 #include "particleConfig.h"
+#include <string>
 
 /**
  * @brief Класс пули игрока
  */
 class PlayerBullet : public Particle {
+  const std::string type = "player_bullet"; ///< Тип частицы
 public:
   /**
    * @brief Конструктор Класса

@@ -1,6 +1,7 @@
 #include "entity.h"
 #include "GameContext.h"
 #include <SDL3/SDL.h>
+#include <string>
 
 Entity::Entity(SDL_Texture *tex, float x, float y, const EntityConfig &config)
     : asset(tex), transform({x, y, 0.0f, 0.0f}), maxHp(config.hp),
@@ -39,3 +40,5 @@ void Entity::activate() {
 void Entity::update(float dt, const GameContext &ctx) {}
 
 const float Entity::getHP() const { return this->hp; }
+
+std::string Entity::getType() const { return this->type; }

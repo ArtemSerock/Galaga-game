@@ -1,5 +1,6 @@
 #include "particle.h"
 #include <SDL3/SDL.h>
+#include <string>
 
 Particle::Particle(SDL_Texture *tex, float x, float y,
                    const ParticleConfig &config)
@@ -38,3 +39,5 @@ void Particle::setPosition(float x, float y) {
   transform.x = x;
   transform.y = y;
 }
+
+std::string Particle::getType() const { return this->type; }

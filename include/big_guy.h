@@ -2,6 +2,7 @@
 #define BIG_GUY_H
 #include "GameContext.h"
 #include "entity.h"
+#include <string>
 
 /**
  * @brief Класс Большого врага
@@ -62,6 +63,7 @@ private:
   float x;
   float y;
   float speed = 0.4f;
+  const std::string type = "big_guy";
   SDL_FPoint p0, p1, p2, p3;
 
   SDL_FPoint targetPoint;

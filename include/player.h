@@ -3,6 +3,7 @@
 
 #include "GameContext.h"
 #include "entity.h"
+#include <string>
 
 class BulletPool;
 class EntityFactory;
@@ -19,6 +20,7 @@ private:
 
   bool wasActivateSafe =
       false; ///< Статус спасения игрока от мгновенного поражения
+  const std::string type = "player"; ///< Тип объекта
 
 public:
   /**
