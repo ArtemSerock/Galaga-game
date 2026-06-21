@@ -2,6 +2,7 @@
 #define ENTITY_FACTORY_H
 
 #include "assetManager.h"
+#include "configManager.h"
 #include "particleConfig.h"
 #include "player.h"
 #include <iostream>
@@ -37,7 +38,7 @@ public:
    */
   template <IsEnemyOrParticle T>
   std::unique_ptr<T> createEntity(float x, float y, SDL_Renderer *renderer) {
-    constexpr std::string type = T::getType();
+    const std::string type = T::getType();
     if (!configData.contains(type)) {
       std::cerr << "FACTORY ERROR: Type '" << type
                 << "' not found in JSON config!" << std::endl;

@@ -36,7 +36,7 @@ void BeePool::spawn(EntityFactory &factory, const GameContext &ctx,
 
   for (auto &slot : pool) {
     if (!slot) {
-      slot = factory.createEntity<Bee>("bee", spawnX, spawnY, ctx.renderer);
+      slot = factory.createEntity<Bee>(spawnX, spawnY, ctx.renderer);
       return;
     }
 

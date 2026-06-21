@@ -39,5 +39,3 @@ void Particle::setPosition(float x, float y) {
   transform.x = x;
   transform.y = y;
 }
-
-std::string Particle::getType() const { return this->type; }

@@ -2,14 +2,12 @@
 #include "GameContext.h"
 #include "entityFactory.h"
 #include "player_bullet.h"
-#include <string>
 
 void BulletPool::spawn(float x, float y, EntityFactory &factory,
                        const GameContext &ctx) {
   for (auto &slot : pool) {
     if (!slot) {
-      slot = factory.createEntity<PlayerBullet>("player_bullet", x, y,
-                                                ctx.renderer);
+      slot = factory.createEntity<PlayerBullet>(x, y, ctx.renderer);
       return;
     }
 

@@ -34,8 +34,7 @@ void BigGuyPool::spawn(EntityFactory &factory, const GameContext &ctx,
 
   for (auto &slot : pool) {
     if (!slot) {
-      slot =
-          factory.createEntity<BigGuy>("big_guy", spawnX, spawnY, ctx.renderer);
+      slot = factory.createEntity<BigGuy>(spawnX, spawnY, ctx.renderer);
       return;
     }
 
