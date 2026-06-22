@@ -2,7 +2,9 @@
 #include "GameContext.h"
 #include "assetManager.h"
 #include "big_guy.h"
+#include "configManager.h"
 #include "entityFactory.h"
+#include "nlohmann/json_fwd.hpp"
 #include "player.h"
 #include "score_manager.h"
 #include <memory>
@@ -21,6 +23,10 @@ GameScene::GameScene(GameContext &ctx) : am(), factory(am) {
   if (!player) {
     std::cerr << "ERROR: Player was not created by factory!" << std::endl;
   }
+
+  const nlohmann::json data = ConfigManager::get("constants");
+  const int max_scores = data.value("max_scores", 0);
+  ScoreManager::getInstance().init(max_scores);
 }
 
 void GameScene::handleEvent(GameContext &ctx, const SDL_Event &event) {

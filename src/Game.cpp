@@ -29,7 +29,9 @@ SDL_AppResult Game::Init(std::string_view title) {
 
   lastTicks = SDL_GetTicksNS();
   ctx.nextScene = SceneType::MENU;
+
   ConfigManager::load("entities", "configs/entities.json");
+  ConfigManager::load("constants", "configs/constants.json");
 
   return SDL_APP_CONTINUE;
 }
