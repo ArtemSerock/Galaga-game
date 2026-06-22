@@ -9,7 +9,8 @@ inline const Uint32 SDL_EVENT_SCORE_CHANGED = SDL_RegisterEvents(1);
  */
 class ScoreManager {
 private:
-  int score = 0; ///< очки
+  int score = 0;  ///< очки
+  int max_scores; ///< Максимальное количество очков
 
   /**
    * @brief Конструктор
@@ -21,6 +22,10 @@ private:
   ~ScoreManager() = default;
   ScoreManager(const ScoreManager &) = delete;
   ScoreManager &operator=(const ScoreManager &) = delete;
+  /**
+   * @brief отправка сообщений
+   */
+  void pushUpdateEvent();
 
 public:
   /**
@@ -41,11 +46,17 @@ public:
    */
   int getScore() const;
 
-private:
   /**
-   * @brief отправка сообщений
+   * @brief Инициализация
+   * @param Максимальное количество очков
    */
-  void pushUpdateEvent();
+  void init(int max_scores);
+
+  /**
+   * @brief Получение максимального числа очков
+   * @return Максимальное количество очков
+   */
+  int getMaxScores() const;
 };
 
 #endif
