@@ -17,6 +17,6 @@ void ScoreManager::pushUpdateEvent() {
   }
 }
 
-void ScoreManager::init(int max_scores) { max_scores = max_scores; }
+void ScoreManager::init(int max_score) { max_scores = max_score; }
 
 int ScoreManager::getMaxScores() const { return max_scores; }
