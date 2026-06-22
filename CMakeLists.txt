@@ -24,7 +24,6 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/nlohmann/json
     GIT_TAG master
 )
-include(FetchContent)
 FetchContent_Declare(
   SDL3_ttf
   GIT_REPOSITORY https://github.com/libsdl-org/SDL_ttf
