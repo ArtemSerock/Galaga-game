@@ -2,8 +2,8 @@
 #define ASSET_MANAGER_H
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
-#include <map>
 #include <string>
+#include <unordered_map>
 
 /**
  * @brief Менеджер текстур
@@ -12,7 +12,8 @@
  */
 class AssetManager {
 private:
-  std::map<std::string, SDL_Texture *> textures; ///< все загруженные текстуры
+  std::unordered_map<std::string, SDL_Texture *>
+      textures; ///< все загруженные текстуры
 
 public:
   /**
