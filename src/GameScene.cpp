@@ -39,6 +39,10 @@ void GameScene::handleEvent(GameContext &ctx, const SDL_Event &event) {
   if (event.type == SDL_EVENT_PLAYER_DIED) {
     ctx.nextScene = SceneType::GAME_OVER;
   }
+  if (ScoreManager::getInstance().getScore() ==
+      ScoreManager::getInstance().getMaxScores()) {
+    ctx.nextScene = SceneType::WIN;
+  }
 }
 
 void GameScene::update(GameContext &ctx, float deltaTime) {
