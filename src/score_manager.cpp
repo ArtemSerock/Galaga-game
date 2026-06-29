@@ -16,3 +16,7 @@ void ScoreManager::pushUpdateEvent() {
     SDL_PushEvent(&event);
   }
 }
+
+void ScoreManager::init(int max_score) { max_scores = max_score; }
+
+int ScoreManager::getMaxScores() const { return max_scores; }

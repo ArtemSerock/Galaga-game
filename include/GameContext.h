@@ -5,7 +5,7 @@
 #include <SDL3/SDL.h>
 #include <memory>
 
-enum class SceneType { NONE, MENU, GAME, GAME_OVER };
+enum class SceneType { NONE, MENU, GAME, GAME_OVER, WIN };
 
 inline Uint32 SDL_EVENT_PLAYER_DIED = 0;
 
