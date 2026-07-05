@@ -7,7 +7,6 @@
 #include "entityFactory.h"
 #include <SDL3/SDL.h>
 #include <algorithm>
-#include <iostream>
 
 Player::Player(SDL_Texture *tex, float x, float y, const EntityConfig &config)
     : Entity(tex, x, y, config) {}
@@ -30,7 +29,6 @@ void Player::update(float dt, const GameContext &ctx, BulletPool &pool,
 
   if (keys[SDL_SCANCODE_SPACE] && shootTimer <= 0.0f) {
     this->shoot(pool, factory, ctx);
-    std::cout << "SHOOT" << std::endl;
   }
 
   this->transform.x += directionX * speed_per_second;
