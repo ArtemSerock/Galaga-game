@@ -23,4 +23,4 @@ void WinScene::render(GameContext &ctx) const {
   SDL_RenderTexture(ctx.renderer, message, NULL, &meessgeRect);
 }
 
-WinScene::~WinScene() { SDL_DestroyTexture(message); }
+WinScene::~WinScene() {}

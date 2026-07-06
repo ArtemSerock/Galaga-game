@@ -60,5 +60,4 @@ FinalScene::~FinalScene() {
   TTF_DestroyText(scoreText);
   TTF_CloseFont(font);
   TTF_DestroyRendererTextEngine(engine);
-  SDL_DestroyTexture(message);
 }

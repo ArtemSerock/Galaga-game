@@ -127,4 +127,4 @@ void GameScene::render(GameContext &ctx) const {
   }
 }
 
-GameScene::~GameScene() { SDL_DestroyTexture(pause); }
+GameScene::~GameScene() {}

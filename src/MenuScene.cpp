@@ -45,8 +45,4 @@ void MenuScene::render(GameContext &ctx) const {
   SDL_RenderTexture(ctx.renderer, control, NULL, &controlRect);
 }
 
-MenuScene::~MenuScene() {
-  SDL_DestroyTexture(logo);
-  SDL_DestroyTexture(label);
-  SDL_DestroyTexture(control);
-}
+MenuScene::~MenuScene() {}
