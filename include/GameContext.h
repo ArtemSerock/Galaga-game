@@ -19,8 +19,8 @@ inline Uint32 SDL_EVENT_PLAYER_DIED = 0;
 struct GameContext {
   SDL_Renderer *renderer = nullptr;      ///< Рендер игры
   SDL_Window *window = nullptr;          ///< Окно игры
-  int width = 1000;                      ///< Длина экрана
-  int height = 800;                      ///< Ширина экрана
+  int width = 1000;                      ///< Ширина экрана
+  int height = 800;                      ///< Высота экрана
   SceneType nextScene = SceneType::NONE; ///< Следующая сцена
 
   std::unique_ptr<IScene> activeScene = nullptr; ///< Текущая сцена
