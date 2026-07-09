@@ -1,3 +1,5 @@
 {
-  "max_scores": 100
+  "max_scores": 100,
+  "super_bomb_radius": 200,
+  "super_bomb_count": 3
 }
