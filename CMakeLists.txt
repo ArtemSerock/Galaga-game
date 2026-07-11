@@ -57,3 +57,10 @@ else()
   target_compile_options(Galaga PRIVATE -O3 -ffunction-sections -fdata-sections -flto)
   target_link_options(Galaga PRIVATE -Wl,--gc-sections -flto -s)
 endif()
+
+add_custom_target(run
+    COMMAND ${CMAKE_BINARY_DIR}/Galaga
+    DEPENDS ${PROJECT_NAME}
+    COMMENT "Запуск игры..."
+)
+
