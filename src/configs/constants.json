@@ -1,5 +1,6 @@
 {
   "max_scores": 100,
   "super_bomb_radius": 200,
-  "super_bomb_count": 3
+  "super_bomb_count": 3,
+  "super_bomb_asset": "assets/super_bomb.png"
 }
