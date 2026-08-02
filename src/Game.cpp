@@ -71,15 +71,7 @@ void Game::Render() {
 }
 
 void Game::Clean() {
-  if (ctx.renderer) {
-    SDL_DestroyRenderer(ctx.renderer);
-    ctx.renderer = nullptr;
-  }
-
-  if (ctx.window) {
-    SDL_DestroyWindow(ctx.window);
-    ctx.window = nullptr;
-  }
+  TTF_Quit();
 
   SDL_Quit();
 }
