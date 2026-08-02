@@ -1,5 +1,5 @@
 # Galaga-game
-![Galaga Preview](assets/galaga.png)
+![Demo](assets/gameplay.gif)
 
 
 ## Описание
