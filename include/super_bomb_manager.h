@@ -1,9 +1,11 @@
 #ifndef SUPER_BOMB_MANAGER_H
 #define SUPER_BOMB_MANAGER_H
 
+#include "SDL3/SDL_stdinc.h"
+#include "super_bomb.h"
 #include <SDL3/SDL.h>
 
-inline const Uint32 SDL_EVENT_SUPER_BOMP_USED = SDL_RegisterEvents(1);
+extern const Uint32 SDL_EVENT_SUPER_BOMB_USED;
 
 /**
  * @brief Менеджер Супер-бомбы
@@ -13,8 +15,10 @@ inline const Uint32 SDL_EVENT_SUPER_BOMP_USED = SDL_RegisterEvents(1);
  */
 class SuperBombManager {
 private:
-  float radius; ///< Радиус взрыва
-  int count;    ///< Количество использований
+  SuperBomb bomb;          ///< Супер-бомба
+  float cooldown_duration; ///< Задержка между активациями Супер-бомбы
+  float cooldown_timer;    ///< Таймер задержки между активациями
+  int count;               ///< Количество использований
 
   /**
    * @brief Конструктор
@@ -38,10 +42,7 @@ public:
   /**
    * @brief глобальная точка доступа
    */
-  static SuperBombManager &getInstance() {
-    static SuperBombManager instance;
-    return instance;
-  }
+  static SuperBombManager &getInstance();
 
   /**
    * @brief Получение количества зарядов
@@ -52,13 +53,27 @@ public:
    * @brief Инициализация
    * @param start_count Начальное число зарядов
    */
-  void init(int start_count);
+  void init(SDL_Texture *tex);
 
   /**
-   * @brief Вычитание количества зарядов
-   * @param value Значение для вычитания
+   * @brief Активация Супер-бомбы
+   * @param x координата бомбы по горизонтали
+   * @param y координата бомбы по вертикали
+   * @return true, если активация прошла успешно, false -- иначе
    */
-  void SubCount(int value);
+  void boom(float x, float y);
+
+  /**
+   * @brief Обработка вычислений
+   * @param delta_time Задержка во времени между кадрами
+   */
+  void update(float delta_time);
+
+  /**
+   * @brief Отрисовка
+   * @param renderer Обработчик окна
+   */
+  void draw(SDL_Renderer *renderer);
 };
 
 #endif
