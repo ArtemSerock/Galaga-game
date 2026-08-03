@@ -26,6 +26,11 @@ GameScene::GameScene(GameContext &ctx) : am(), factory(am) {
 
   const nlohmann::json data = ConfigManager::get("constants");
   const int max_scores = data.value("max_scores", 0);
+
+  const std::string super_bomb_asset = data.value("super_bomb_asset", "");
+
+  super_bomb_tex = am.getTexture(super_bomb_asset, ctx.renderer);
+
   ScoreManager::getInstance().init(max_scores);
 }
 

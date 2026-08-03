@@ -35,6 +35,8 @@ private:
   float bigEnemyTimer = 30.0f;    ///< Таймер призыва больших врагов
   std::unique_ptr<CollisionManager> cm; ///< Менеджер коллизий
 
+  SDL_Texture *super_bomb_tex; ///< Текстура супер-бомбы
+
   float shakeTime = 0.0f;  ///< Таймер тряски экрана
   float shakeForce = 0.0f; ///< Сила тряски экрана
 
