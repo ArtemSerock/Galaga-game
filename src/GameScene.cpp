@@ -1,5 +1,7 @@
 #include "GameScene.h"
 #include "GameContext.h"
+#include "SDL3/SDL_events.h"
+#include "SDL3/SDL_keycode.h"
 #include "assetManager.h"
 #include "big_guy.h"
 #include "configManager.h"
@@ -7,6 +9,8 @@
 #include "nlohmann/json_fwd.hpp"
 #include "player.h"
 #include "score_manager.h"
+#include "super_bomb_manager.h"
+#include <iostream>
 #include <memory>
 
 GameScene::GameScene(GameContext &ctx) : am(), factory(am) {
@@ -30,6 +34,7 @@ GameScene::GameScene(GameContext &ctx) : am(), factory(am) {
   const std::string super_bomb_asset = data.value("super_bomb_asset", "");
 
   super_bomb_tex = am.getTexture(super_bomb_asset, ctx.renderer);
+  SuperBombManager::getInstance().init(super_bomb_tex);
 
   ScoreManager::getInstance().init(max_scores);
 }
@@ -39,6 +44,13 @@ void GameScene::handleEvent(GameContext &ctx, const SDL_Event &event) {
   if (event.type == SDL_EVENT_KEY_UP) {
     if (event.key.key == SDLK_ESCAPE)
       isPause = !isPause;
+  }
+  if (event.type == SDL_EVENT_KEY_DOWN) {
+    if (event.key.key == SDLK_1) {
+      SuperBombManager::getInstance().boom(player->getRect().x,
+                                           player->getRect().y);
+      std::cout << "BOOM" << std::endl;
+    }
   }
 
   if (event.type == SDL_EVENT_PLAYER_DIED) {
@@ -56,6 +68,8 @@ void GameScene::update(GameContext &ctx, float deltaTime) {
     player_bullets.update(deltaTime, ctx);
     bees.update(deltaTime, ctx);
     big_guy_pool.update(deltaTime, ctx);
+
+    SuperBombManager::getInstance().update(deltaTime);
 
     if (this->beeTimer > 0.0f) {
       this->beeTimer -= deltaTime;
@@ -121,6 +135,8 @@ void GameScene::render(GameContext &ctx) const {
   player_bullets.draw(ctx.renderer);
   bees.draw(ctx.renderer);
   big_guy_pool.draw(ctx.renderer);
+
+  SuperBombManager::getInstance().draw(ctx.renderer);
 
   player->draw(ctx.renderer);
   if (shakeTime > 0.0f) {
