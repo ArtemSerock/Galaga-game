@@ -45,3 +45,5 @@ void SuperBombManager::boom(float x, float y) {
     cooldown_timer = cooldown_duration;
   }
 }
+
+const SDL_FRect &SuperBombManager::getRect() const { return bomb.getRect(); }

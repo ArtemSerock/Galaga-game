@@ -1,7 +1,6 @@
 #ifndef SUPER_BOMB_MANAGER_H
 #define SUPER_BOMB_MANAGER_H
 
-#include "SDL3/SDL_stdinc.h"
 #include "super_bomb.h"
 #include <SDL3/SDL.h>
 
@@ -74,6 +73,12 @@ public:
    * @param renderer Обработчик окна
    */
   void draw(SDL_Renderer *renderer);
+
+  /**
+   * @brief Получение rectangle текстуры
+   * @return rectangle текстуры
+   */
+  const SDL_FRect &getRect() const;
 };
 
 #endif
