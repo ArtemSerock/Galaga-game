@@ -79,6 +79,12 @@ public:
    * @return rectangle текстуры
    */
   const SDL_FRect &getRect() const;
+
+  /**
+   * @brief Проверка на активность
+   * @return true, если супер-бомба активна. false -- иначе
+   */
+  bool isReady() const;
 };
 
 #endif

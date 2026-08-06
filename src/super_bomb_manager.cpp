@@ -47,3 +47,5 @@ void SuperBombManager::boom(float x, float y) {
 }
 
 const SDL_FRect &SuperBombManager::getRect() const { return bomb.getRect(); }
+
+bool SuperBombManager::isReady() const { return bomb.isActive(); }
