@@ -40,9 +40,10 @@ void SuperBombManager::update(float dt) {
 }
 
 void SuperBombManager::boom(float x, float y) {
-  if (cooldown_timer <= 0) {
+  if (cooldown_timer <= 0 && count > 0) {
     bomb.spawn(x, y);
     cooldown_timer = cooldown_duration;
+    count--;
   }
 }
 
