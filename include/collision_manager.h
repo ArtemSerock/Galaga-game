@@ -8,6 +8,7 @@
 #include "bullet_pool.h"
 #include "physic.h"
 #include "player.h"
+#include "score_manager.h"
 #include "super_bomb_manager.h"
 #include <array>
 #include <memory>
@@ -101,6 +102,7 @@ public:
           enemy->isActive() && enemy->isReady() &&
           SuperBombManager::getInstance().isReady()) {
         enemy->deactivate();
+        ScoreManager::getInstance().addScore(1);
       }
     }
   }
