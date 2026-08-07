@@ -8,6 +8,8 @@
 #include "bullet_pool.h"
 #include "physic.h"
 #include "player.h"
+#include "score_manager.h"
+#include "super_bomb_manager.h"
 #include <array>
 #include <memory>
 
@@ -84,6 +86,25 @@ public:
       }
     }
     return false;
+  }
+
+  template <typename T, int size>
+  void CheckCollisionEnemyAndSuperBomb(
+      const std::array<std::unique_ptr<T>, size> &enemy_pool) {
+
+    SDL_FRect bomb_rect = SuperBombManager::getInstance().getRect();
+
+    for (auto &enemy : enemy_pool) {
+      if (!enemy) {
+        continue;
+      }
+      if (Physic::isCollision(enemy->getRect(), bomb_rect) &&
+          enemy->isActive() && enemy->isReady() &&
+          SuperBombManager::getInstance().isReady()) {
+        enemy->deactivate();
+        ScoreManager::getInstance().addScore(1);
+      }
+    }
   }
 };
 

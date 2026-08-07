@@ -1,6 +1,5 @@
 #ifndef PHYSIC_H
 #define PHYSIC_H
-#include "SDL3/SDL_rect.h"
 #include <SDL3/SDL.h>
 #include <array>
 #include <cmath>
@@ -67,6 +66,26 @@ public:
   static inline bool isCollision(const SDL_FRect &rect1,
                                  const SDL_FRect &rect2) noexcept {
     return SDL_HasRectIntersectionFloat(&rect1, &rect2);
+  }
+
+  /**
+   * @brief Нахождение координаты левого верхнего угла
+   * Контекст:
+   *   Для некоторых задач необходимо построить окружность вокруг объекта
+   *   в SDL3 все текстуры представлены в виде прямоугольника,
+   *   поэтому необходим способ перевести координаты центра окружности и радиус
+   * в прямоугольник
+   *
+   * @param center_x Координата центра окружности по горизонтали
+   * @param center_y Координата центра окружности по вертикали
+   * @param radius Радиус окружности
+   *
+   * @return Прямоугольник, описанный около окружности
+   */
+  static inline SDL_FRect getRectFromCircle(float center_x, float center_y,
+                                            float radius) {
+    float side = 2 * radius;
+    return {center_x - radius, center_y - radius, side, side};
   }
 };
 

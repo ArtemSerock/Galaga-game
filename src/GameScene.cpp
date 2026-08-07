@@ -1,5 +1,8 @@
 #include "GameScene.h"
 #include "GameContext.h"
+#include "SDL3/SDL_events.h"
+#include "SDL3/SDL_keycode.h"
+#include "SDL3_ttf/SDL_ttf.h"
 #include "assetManager.h"
 #include "big_guy.h"
 #include "configManager.h"
@@ -7,11 +10,16 @@
 #include "nlohmann/json_fwd.hpp"
 #include "player.h"
 #include "score_manager.h"
+#include "super_bomb_manager.h"
+#include <format>
 #include <memory>
 
 GameScene::GameScene(GameContext &ctx) : am(), factory(am) {
   player = factory.createEntity<Player>(
       ctx.width / 2.0f, (ctx.height / 3.0f) * 2.0f, ctx.renderer);
+
+  engine = TTF_CreateRendererTextEngine(ctx.renderer);
+  font = TTF_OpenFont("../assets/Roboto.ttf", 50);
 
   cm = std::make_unique<CollisionManager>(*player, player_bullets);
 
@@ -26,6 +34,12 @@ GameScene::GameScene(GameContext &ctx) : am(), factory(am) {
 
   const nlohmann::json data = ConfigManager::get("constants");
   const int max_scores = data.value("max_scores", 0);
+
+  const std::string super_bomb_asset = data.value("super_bomb_asset", "");
+
+  super_bomb_tex = am.getTexture(super_bomb_asset, ctx.renderer);
+  SuperBombManager::getInstance().init(super_bomb_tex);
+
   ScoreManager::getInstance().init(max_scores);
 }
 
@@ -34,6 +48,14 @@ void GameScene::handleEvent(GameContext &ctx, const SDL_Event &event) {
   if (event.type == SDL_EVENT_KEY_UP) {
     if (event.key.key == SDLK_ESCAPE)
       isPause = !isPause;
+  }
+  if (event.type == SDL_EVENT_KEY_DOWN) {
+    if (event.key.key == SDLK_E) {
+      shakeTime = 0.4f;
+      shakeForce = 10.0f;
+      SuperBombManager::getInstance().boom(player->getRect().x,
+                                           player->getRect().y);
+    }
   }
 
   if (event.type == SDL_EVENT_PLAYER_DIED) {
@@ -51,6 +73,8 @@ void GameScene::update(GameContext &ctx, float deltaTime) {
     player_bullets.update(deltaTime, ctx);
     bees.update(deltaTime, ctx);
     big_guy_pool.update(deltaTime, ctx);
+
+    SuperBombManager::getInstance().update(deltaTime);
 
     if (this->beeTimer > 0.0f) {
       this->beeTimer -= deltaTime;
@@ -76,6 +100,9 @@ void GameScene::update(GameContext &ctx, float deltaTime) {
       ScoreManager::getInstance().addScore(1);
     }
 
+    cm->CheckCollisionEnemyAndSuperBomb<Bee, 20>(bees.getPool());
+    cm->CheckCollisionEnemyAndSuperBomb<BigGuy, 2>(big_guy_pool.getPool());
+
     bool isPlayerHit =
         cm->CheckCollisionPlayerAndEnemy<Bee, 20>(bees.getPool()) ||
         cm->CheckCollisionPlayerAndEnemy<BigGuy, 2>(big_guy_pool.getPool());
@@ -98,6 +125,12 @@ void GameScene::update(GameContext &ctx, float deltaTime) {
       big_guy_pool.killAll();
       player->switchSafeStatus();
     }
+
+    int charge = SuperBombManager::getInstance().getCount();
+    SB_charge = TTF_CreateText(engine, font, "", 0);
+    std::string str_charge = std::format("{}", charge);
+    TTF_SetTextString(SB_charge, str_charge.c_str(), str_charge.length());
+    TTF_SetTextColor(SB_charge, 0, 0, 0, 255);
   }
 }
 
@@ -117,6 +150,8 @@ void GameScene::render(GameContext &ctx) const {
   bees.draw(ctx.renderer);
   big_guy_pool.draw(ctx.renderer);
 
+  SuperBombManager::getInstance().draw(ctx.renderer);
+
   player->draw(ctx.renderer);
   if (shakeTime > 0.0f) {
     SDL_SetRenderViewport(ctx.renderer, nullptr);
@@ -125,6 +160,11 @@ void GameScene::render(GameContext &ctx) const {
   if (isPause) {
     SDL_RenderTexture(ctx.renderer, pause, NULL, &pauseRect);
   }
+  TTF_DrawRendererText(SB_charge, ctx.width - 100, 0);
 }
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+  TTF_DestroyText(SB_charge);
+  TTF_CloseFont(font);
+  TTF_DestroyRendererTextEngine(engine);
+}

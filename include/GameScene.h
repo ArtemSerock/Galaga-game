@@ -3,6 +3,7 @@
 
 #include "GameContext.h"
 #include "IScene.h"
+#include "SDL3_ttf/SDL_ttf.h"
 #include "assetManager.h"
 #include "bee_pool.h"
 #include "big_guy_pool.h"
@@ -35,8 +36,14 @@ private:
   float bigEnemyTimer = 30.0f;    ///< Таймер призыва больших врагов
   std::unique_ptr<CollisionManager> cm; ///< Менеджер коллизий
 
+  SDL_Texture *super_bomb_tex; ///< Текстура супер-бомбы
+
   float shakeTime = 0.0f;  ///< Таймер тряски экрана
   float shakeForce = 0.0f; ///< Сила тряски экрана
+
+  TTF_TextEngine *engine; ///< Движок шрифта
+  TTF_Font *font;         ///< Шрифт
+  TTF_Text *SB_charge;    ///< Текст зарадов супер-бомбы
 
 public:
   /**
