@@ -97,7 +97,9 @@ public:
       if (!enemy) {
         continue;
       }
-      if (Physic::isCollision(enemy->getRect(), bomb_rect)) {
+      if (Physic::isCollision(enemy->getRect(), bomb_rect) &&
+          enemy->isActive() && enemy->isReady() &&
+          SuperBombManager::getInstance().isReady()) {
         enemy->deactivate();
       }
     }

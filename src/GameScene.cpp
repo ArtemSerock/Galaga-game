@@ -95,6 +95,9 @@ void GameScene::update(GameContext &ctx, float deltaTime) {
       ScoreManager::getInstance().addScore(1);
     }
 
+    cm->CheckCollisionEnemyAndSuperBomb<Bee, 20>(bees.getPool());
+    cm->CheckCollisionEnemyAndSuperBomb<BigGuy, 2>(big_guy_pool.getPool());
+
     bool isPlayerHit =
         cm->CheckCollisionPlayerAndEnemy<Bee, 20>(bees.getPool()) ||
         cm->CheckCollisionPlayerAndEnemy<BigGuy, 2>(big_guy_pool.getPool());
