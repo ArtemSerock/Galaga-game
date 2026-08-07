@@ -10,7 +10,6 @@
 #include "player.h"
 #include "score_manager.h"
 #include "super_bomb_manager.h"
-#include <iostream>
 #include <memory>
 
 GameScene::GameScene(GameContext &ctx) : am(), factory(am) {
@@ -46,10 +45,9 @@ void GameScene::handleEvent(GameContext &ctx, const SDL_Event &event) {
       isPause = !isPause;
   }
   if (event.type == SDL_EVENT_KEY_DOWN) {
-    if (event.key.key == SDLK_1) {
+    if (event.key.key == SDLK_E) {
       SuperBombManager::getInstance().boom(player->getRect().x,
                                            player->getRect().y);
-      std::cout << "BOOM" << std::endl;
     }
   }
 
