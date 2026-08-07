@@ -2,6 +2,7 @@
 #include "GameContext.h"
 #include "SDL3/SDL_events.h"
 #include "SDL3/SDL_keycode.h"
+#include "SDL3_ttf/SDL_ttf.h"
 #include "assetManager.h"
 #include "big_guy.h"
 #include "configManager.h"
@@ -10,11 +11,15 @@
 #include "player.h"
 #include "score_manager.h"
 #include "super_bomb_manager.h"
+#include <format>
 #include <memory>
 
 GameScene::GameScene(GameContext &ctx) : am(), factory(am) {
   player = factory.createEntity<Player>(
       ctx.width / 2.0f, (ctx.height / 3.0f) * 2.0f, ctx.renderer);
+
+  engine = TTF_CreateRendererTextEngine(ctx.renderer);
+  font = TTF_OpenFont("../assets/Roboto.ttf", 50);
 
   cm = std::make_unique<CollisionManager>(*player, player_bullets);
 
@@ -46,6 +51,8 @@ void GameScene::handleEvent(GameContext &ctx, const SDL_Event &event) {
   }
   if (event.type == SDL_EVENT_KEY_DOWN) {
     if (event.key.key == SDLK_E) {
+      shakeTime = 0.4f;
+      shakeForce = 10.0f;
       SuperBombManager::getInstance().boom(player->getRect().x,
                                            player->getRect().y);
     }
@@ -118,6 +125,12 @@ void GameScene::update(GameContext &ctx, float deltaTime) {
       big_guy_pool.killAll();
       player->switchSafeStatus();
     }
+
+    int charge = SuperBombManager::getInstance().getCount();
+    SB_charge = TTF_CreateText(engine, font, "", 0);
+    std::string str_charge = std::format("{}", charge);
+    TTF_SetTextString(SB_charge, str_charge.c_str(), str_charge.length());
+    TTF_SetTextColor(SB_charge, 0, 0, 0, 255);
   }
 }
 
@@ -147,6 +160,11 @@ void GameScene::render(GameContext &ctx) const {
   if (isPause) {
     SDL_RenderTexture(ctx.renderer, pause, NULL, &pauseRect);
   }
+  TTF_DrawRendererText(SB_charge, ctx.width - 100, 0);
 }
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+  TTF_DestroyText(SB_charge);
+  TTF_CloseFont(font);
+  TTF_DestroyRendererTextEngine(engine);
+}
